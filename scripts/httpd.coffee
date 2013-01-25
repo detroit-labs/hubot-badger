@@ -33,7 +33,7 @@ module.exports = (robot) ->
   robot.router.get "/hubot/standup/koha", (req, res) ->
     envelope = {}
     envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
-    robot.send envelope, "This is a test"
+    robot.send envelope, "http://playforth.files.wordpress.com/2012/07/koha_logo2.jpg"
     res.end "Dunzo"
 
   robot.router.get "/hubot/info", (req, res) ->
