@@ -19,8 +19,6 @@
 
 spawn = require('child_process').spawn
 
-HttpClient = require 'scoped-http-client'
-
 module.exports = (robot) ->
 
   robot.router.get "/hubot/version", (req, res) ->
