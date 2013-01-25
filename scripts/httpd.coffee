@@ -29,6 +29,9 @@ module.exports = (robot) ->
 
   robot.router.get "/hubot/time", (req, res) ->
     res.end "Server time is: #{new Date()}"
+	
+  robot.router.get "/hubot/standup/:team", (req, res) ->
+	res.end req.params["team"]
 
   robot.router.get "/hubot/koha", (req, res) ->
     envelope = {}
