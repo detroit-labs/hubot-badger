@@ -31,7 +31,10 @@ module.exports = (robot) ->
     res.end "Server time is: #{new Date()}"
 
   robot.router.get "/hubot/standup/koha", (req, res) ->
-    res.end res
+    envelope = {}
+    envelope.room = "31582_detroit_labs"
+    robot.adapter.send envelope, "This is a test"
+    res.end 
 
   robot.router.get "/hubot/info", (req, res) ->
     child = spawn('/bin/sh', ['-c', "echo I\\'m $LOGNAME@$(hostname):$(pwd) \\($(git rev-parse HEAD)\\)"])
