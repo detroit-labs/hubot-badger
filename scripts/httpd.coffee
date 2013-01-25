@@ -34,9 +34,17 @@ module.exports = (robot) ->
     team = req.params["team"]
     
     robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
-      @standup = JSON.parse(body)
-      if @standup.hasOwnProperty( team )
-        res.end @standup[team]["messages"][0]
+      standup = JSON.parse(body)
+      if standup.hasOwnProperty( team )
+        teamStandup = standup[team]
+        messages = teamStandup["messages"]
+        rooms = teamStandup["rooms"]
+        
+        for room in rooms
+          envelope = {}
+          envelope.reply_to = room
+          for message in messages
+            robot.send envelope, message
     
     res.end "couldn't find the team"
 
