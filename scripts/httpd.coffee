@@ -30,9 +30,9 @@ module.exports = (robot) ->
   robot.router.get "/hubot/time", (req, res) ->
     res.end "Server time is: #{new Date()}"
 
-  robot.router.get "/hubot/standup/koha", (req, res) ->
+  robot.router.get "/hubot/standup/:team", (req, res) ->
     envelope = {}
-    envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
+    envelope.reply_to = "31582_"+ req.params.team +"@conf.hipchat.com"
     robot.send envelope, "http://playforth.files.wordpress.com/2012/07/koha_logo2.jpg"
     res.end "Dunzo"
 
