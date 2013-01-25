@@ -33,15 +33,13 @@ module.exports = (robot) ->
   robot.router.get "/hubot/koha", (req, res) ->
     envelope = {}
     envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
-    robot.send envelope, "KOHA STANDUP! KOHA STANDUP! KOHA STANDUP!"
-    robot.send envelope, "http://playforth.files.wordpress.com/2012/07/koha_logo2.jpg"
+    robot.send envelope, "http://livekoha.com/img/testimonial-tim.jpg"
     robot.send envelope, "KOHA STANDUP! KOHA STANDUP! KOHA STANDUP!"
     res.end "Dunzo"
 
   robot.router.get "/hubot/lunchclub", (req, res) ->
     envelope = {}
     envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
-    robot.send envelope, "LUNCH CLUB! LUNCH CLUB! LUNCH CLUB!"
     robot.send envelope, "http://cdn.memegenerator.net/instances/400x/33855167.jpg"
     robot.send envelope, "LUNCH CLUB! LUNCH CLUB! LUNCH CLUB!"
     res.end "Dunzo"
@@ -49,7 +47,6 @@ module.exports = (robot) ->
   robot.router.get "/hubot/titlesource", (req, res) ->
     envelope = {}
     envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
-    robot.send envelope, "TITLE SOURCE STANDUP! TITLE SOURCE STANDUP! TITLE SOURCE STANDUP!"
     robot.send envelope, "http://www.enniscenter.org/wp-content/uploads/2011/07/Title-Source-Check-Presentation-e1309974615321.jpg"
     robot.send envelope, "TITLE SOURCE STANDUP! TITLE SOURCE STANDUP! TITLE SOURCE STANDUP!"
     res.end "Dunzo"
