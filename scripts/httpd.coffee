@@ -54,7 +54,7 @@ module.exports = (robot) ->
     robot.send envelope, "TITLE SOURCE STANDUP! TITLE SOURCE STANDUP! TITLE SOURCE STANDUP!"
     res.end "Dunzo"
 
-    robot.router.get "/hubot/shipped", (req, res) ->
+  robot.router.get "/hubot/shipped", (req, res) ->
     envelope = {}
     envelope.reply_to = "31582_detroit_labs@conf.hipchat.com"
 
