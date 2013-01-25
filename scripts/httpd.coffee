@@ -34,9 +34,9 @@ module.exports = (robot) ->
     team = req.params["team"]
     
     if not @standup
-      @standup = { koha: { sound: 'test', messages: [ 'this is a test' ], rooms: ['']}}
-      console.log( @standup )
-      
+      robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
+        @standup = JSON.parse(body)
+    
     if @standup.hasOwnProperty( team )
       res.end @standup[team]["messages"][0]
     else
