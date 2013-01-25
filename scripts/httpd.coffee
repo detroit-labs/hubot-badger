@@ -34,9 +34,7 @@ module.exports = (robot) ->
     team = req.params["team"]
     
     if not @standup
-      console.log( "tesT" )
       robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
-        console.log( body )
         @standup = JSON.parse(body)
         console.log( @standup )
     
