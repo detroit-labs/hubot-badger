@@ -21,6 +21,9 @@ spawn = require('child_process').spawn
 
 module.exports = (robot) ->
 
+  robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
+    @standup = JSON.parse(body)
+
   robot.router.get "/hubot/version", (req, res) ->
     res.end robot.version
 
@@ -32,11 +35,6 @@ module.exports = (robot) ->
 	
   robot.router.get "/hubot/standup/:team", (req, res) ->
     team = req.params["team"]
-    
-    if not @standup
-      robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
-        @standup = JSON.parse(body)
-        console.log( @standup )
     
     if @standup.hasOwnProperty( team )
       res.end @standup[team]["messages"][0]
