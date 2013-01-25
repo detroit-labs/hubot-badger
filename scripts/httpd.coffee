@@ -31,7 +31,16 @@ module.exports = (robot) ->
     res.end "Server time is: #{new Date()}"
 	
   robot.router.get "/hubot/standup/:team", (req, res) ->
-    res.end @standup[req.params["team"]]["messages"][0]
+    team = req.params["team"]
+    
+    if not @standup
+      robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
+        @standup = JSON.parse(body)
+    
+    if @standup.hasOwnProperty( team )
+      res.end @standup[team]["messages"][0]
+    else
+      res.end "couldn't find the team"
 
   robot.router.get "/hubot/koha", (req, res) ->
     envelope = {}
@@ -73,6 +82,3 @@ module.exports = (robot) ->
   robot.router.get "/hubot/ip", (req, res) ->
     robot.http('http://ifconfig.me/ip').get() (err, r, body) ->
       res.end body
-
-  robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
-    @standup = JSON.parse(body)
