@@ -32,7 +32,7 @@ module.exports = (robot) ->
 
   robot.router.get "/hubot/standup/koha", (req, res) ->
     envelope = {}
-    envelope.room = "31582_detroit_labs"
+    envelope.room = "detroit_labs"
     robot.adapter.send envelope, "This is a test"
     res.end 
 
