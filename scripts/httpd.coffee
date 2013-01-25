@@ -37,8 +37,8 @@ module.exports = (robot) ->
       @standup = JSON.parse(body)
       if @standup.hasOwnProperty( team )
         res.end @standup[team]["messages"][0]
-      else
-        res.end "couldn't find the team"
+    
+    res.end "couldn't find the team"
 
   robot.router.get "/hubot/koha", (req, res) ->
     envelope = {}
