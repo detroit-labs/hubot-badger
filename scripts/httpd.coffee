@@ -34,7 +34,7 @@ module.exports = (robot) ->
     team = req.params["team"]
     
     if not @standup
-      @standup = JSON.parse("{koha: {sound: 'test',messages: [ 'this is a test' ],rooms: ['']}}")
+      @standup = JSON.parse("{ koha: { sound: 'test', messages: [ 'this is a test' ], rooms: ['']}}")
       console.log( @standup )
       
     if @standup.hasOwnProperty( team )
