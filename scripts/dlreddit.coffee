@@ -42,7 +42,7 @@ module.exports = (robot) ->
   i = 0
   randomURL = (posts) ->
  
-    if i = posts.length
+    if i is posts.length
       i = 0
       return "no images found"
  
