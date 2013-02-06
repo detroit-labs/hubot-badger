@@ -29,6 +29,24 @@ module.exports = (robot) ->
 
   robot.router.get "/hubot/time", (req, res) ->
     res.end "Server time is: #{new Date()}"
+	
+  robot.router.get "/hubot/standup/:team", (req, res) ->
+    team = req.params["team"]
+    
+    robot.http("https://dl.dropbox.com/s/ewvgh81qpelr9u7/standup.json?dl=1").get() (err, res, body) ->
+      standup = JSON.parse(body)
+      if standup.hasOwnProperty( team )
+        teamStandup = standup[team]
+        messages = teamStandup["messages"]
+        rooms = teamStandup["rooms"]
+        
+        for room in rooms
+          envelope = {}
+          envelope.reply_to = room
+          for message in messages
+            robot.send envelope, message
+    
+    res.end "couldn't find the team"
 
   robot.router.get "/hubot/koha", (req, res) ->
     envelope = {}
