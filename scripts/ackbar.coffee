@@ -1,6 +1,3 @@
-
-<!-- saved from url=(0076)https://raw.github.com/github/hubot-scripts/master/src/scripts/ackbar.coffee -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;"># Description:
 #   None
 #
 # Dependencies:
@@ -32,4 +29,3 @@ ackbars = [
 module.exports = (robot) -&gt;
   robot.hear /it'?s a trap\b/i, (msg) -&gt;
     msg.send msg.random ackbars
-</pre></body></html>
