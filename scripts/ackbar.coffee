@@ -26,6 +26,6 @@ ackbars = [
   "http://farm6.staticflickr.com/5250/5216539895_09f963f448_z.jpg"
 ]
 
-module.exports = (robot) -&gt;
-  robot.hear /it'?s a trap\b/i, (msg) -&gt;
+module.exports = (robot) ->
+  robot.hear /it'?s a trap\b/i, (msg) ->
     msg.send msg.random ackbars
