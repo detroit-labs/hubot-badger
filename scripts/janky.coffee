@@ -156,4 +156,5 @@ module.exports = (robot) ->
 
   robot.router.post "/janky", (req, res) ->
     robot.messageRoom req.body.room, req.body.message
+	console.log(req.body.message)
     res.end "ok"
