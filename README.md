@@ -51,6 +51,8 @@ You can test your hubot by running the following.
 
     % bin/hubot
 
+
+
 You'll see some start up output about where your scripts come from and a
 prompt.
 
@@ -71,6 +73,14 @@ Then you can interact with hubot by typing `hubot help`.
 Take a look at the scripts in the `./scripts` folder for examples.
 Delete any scripts you think are silly.  Add whatever functionality you
 want hubot to have.
+
+#### Working with environment variables
+
+Create shell script with the proper environment variables. Example:
+
+	#!/bin/bash
+	export HUBOT_JANKY_URL="name:password@server.com/"
+	bin/hubot
 
 ## Adapters
 
