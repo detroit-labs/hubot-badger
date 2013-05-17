@@ -76,7 +76,7 @@ want hubot to have.
 
 #### Working with environment variables
 
-Create shell script with the proper environment variables. Example:
+Create a shell script called `localserver.sh` with the proper environment variables. Example:
 
 	#!/bin/bash
 	export HUBOT_JANKY_URL="name:password@server.com/"
