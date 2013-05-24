@@ -64,6 +64,64 @@ post = (path, params, cb, method='POST') ->
     console.log(e)
     cb e, 500, "Client Error"
   req.end(bodyParams)
+	
+parseCIStatus = (text) ->
+  linesArray = text.split /\n/
+  finalArray = []
+  data = []
+  for line in linesArray
+    rowArray = line.split /\s+/
+    while rowArray.length > 4
+      rowArray[1] += " " + rowArray[2]
+      rowArray.splice(2,1)	
+    data.push 
+      name: rowArray[0] 
+      status: rowArray[1]
+      prettyName: rowArray[2]
+      repo: rowArray[3]	
+  broadsideItem = 
+    moduleType: "cinderStatus"
+    email: "cinderbot@detroitlabs.com"
+    url: ""
+    timeToLive: 0
+    data: data
+	
+# BROADSIDE
+broadsideOptions = () ->
+	template =
+		host: "alpha.detroitlabs.com"
+		port: 3000
+		method: "POST"
+		headers:
+			"Content-Type": "application/json"
+			
+postBroadside = (options, params, cb) ->
+    bodyParams = JSON.stringify(params)
+    req = HTTP.request options, (res) ->
+      body = ""
+      res.setEncoding("utf8")
+      res.on "data", (chunk) ->
+        body += chunk
+      res.on "end", () ->
+        cb null, res.statusCode, body
+    req.on "error", (e) ->
+      console.log(e)
+      cb e, 500, "Client Error"
+    req.end(bodyParams)
+	
+postBroadsideQueue = (params) ->
+	options = broadsideOptions()
+	options.path = "/queue/add"
+	postBroadside options, params, (err, statusCode, body) ->
+		console.log "Post image response status code: " + statusCode
+		
+postBroadsideOverride = (params, cb) ->
+	options = broadsideOptions()
+	options.path = "/queue/override"
+	postBroadside options, params, (err, statusCode, body) ->
+		console.log "Post image response status code: " + statusCode
+		
+		
 
 module.exports = (robot) ->
   robot.respond /ci\??$/i, (msg) ->
@@ -131,6 +189,9 @@ module.exports = (robot) ->
   robot.respond /ci status$/i, (msg) ->
     get "", {}, (err, statusCode, body) ->
       if statusCode == 200
+        bodyObject= parseCIStatus body
+        bodyObject.timeToLive = 30000
+        postBroadsideOverride bodyObject
         msg.send(body)
       else
         msg.send("who knows")
@@ -155,5 +216,10 @@ module.exports = (robot) ->
       msg.send response
 
   robot.router.post "/janky", (req, res) ->
+    get "", {}, (err, statusCode, body) ->
+      if statusCode == 200
+        bodyObject = parseCIStatus body
+        bodyObject.timeToLive = 45000
+        postBroadsideOverride bodyObject
     robot.messageRoom req.body.room, req.body.message
     res.end "ok"
