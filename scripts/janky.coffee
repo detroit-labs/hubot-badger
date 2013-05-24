@@ -141,7 +141,7 @@ module.exports = (robot) ->
       if statusCode == 201 or statusCode == 404
         response = body
       else
-        console.log body
+        console.log body	
         response = "Can't go HAM on #{app}/#{branch}, shit's being weird."
 
       msg.send response
@@ -212,14 +212,8 @@ module.exports = (robot) ->
         response += "Build ##{build.number} (#{build.sha1}) of #{build.repo}/#{build.branch} #{build.status}"
         response += "(#{build.duration}s) #{build.compare}"
         response += "\n" if count > 1
-
       msg.send response
 
   robot.router.post "/janky", (req, res) ->
-    get "", {}, (err, statusCode, body) ->
-      if statusCode == 200
-        bodyObject = parseCIStatus body
-        bodyObject.timeToLive = 45000
-        postBroadsideOverride bodyObject
     robot.messageRoom req.body.room, req.body.message
     res.end "ok"
