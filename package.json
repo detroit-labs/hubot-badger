@@ -17,9 +17,9 @@
   "dependencies": {
     "hubot": "2.4.1",
     "optparse": "1.0.3",
-    "hubot-hipchat": ">= 1.1.3",
+    "hubot-hipchat": "1.1.3",
     "redis": "0.7.2",
-    "request": ">= 1.9"
+    "request": "1.9"
   },
 
   "engines": {
