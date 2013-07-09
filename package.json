@@ -19,7 +19,7 @@
     "optparse": "1.0.3",
     "hubot-hipchat": "2.5.1-1",
     "redis": "0.7.2",
-    "request": ">= 1.9"
+    "request": "1.9"
   },
 
   "engines": {
