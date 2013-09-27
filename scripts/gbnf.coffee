@@ -25,5 +25,8 @@
  ]
 
  module.exports = (robot) ->
-   robot.hear /gone but not forgotten/i, (msg) ->
+   robot.hear /gone but|and not forgotten/i, (msg) ->
      msg.send msg.random images
+
+   robot.hear /gone and forgotten/i, (msg) ->
+     msg.send "http://i.imgur.com/b94MaKX.jpg"
