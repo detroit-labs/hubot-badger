@@ -20,7 +20,8 @@
    "http://i.imgur.com/OekGPKb.jpg",
    "http://i.imgur.com/DK1JfIo.jpg",
    "http://i.imgur.com/XvUJnOa.jpg",
-   "http://i.imgur.com/UvKEryk.jpg"
+   "http://i.imgur.com/UvKEryk.jpg",
+   "http://i.imgur.com/Zkrvodl.jpg"
  ]
 
  module.exports = (robot) ->
