@@ -264,6 +264,7 @@ answers = [
   "Apologizing.",
   "Appreciative snapping.",
   "Arnold Schwarzenegger.",
+  "Ashe Dryden.",
   "Asians who aren't good at math.",
   "Assless chaps.",
   "Attitude.",
