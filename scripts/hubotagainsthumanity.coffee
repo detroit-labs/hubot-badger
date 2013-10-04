@@ -432,6 +432,7 @@ answers = [
   "Goats eating cans.",
   "Goblins.",
   "God.",
+  "God dammit, Jeff Kelley!",
   "GoGurt.",
   "Golden showers.",
   "Good grammar.",
