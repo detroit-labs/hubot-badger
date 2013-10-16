@@ -8,9 +8,9 @@
 #   None
 #
 # Commands:
-#   q card - Returns a question
-#   card me - Displays an answer
-#   card 2 - Displays two answers for questions with two blanks
+#   hubot q card - Returns a question
+#   hubot card me - Displays an answer
+#   hubot card 2 - Displays two answers for questions with two blanks
 #
 # Author:
 #   Jonny Campbell (@jonnycampbell)
