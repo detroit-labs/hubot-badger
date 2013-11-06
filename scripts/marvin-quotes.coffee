@@ -26,17 +26,17 @@ quotes = [
   "Here I am brain the size of a planet, and they ask me to take you to the bridge. Call that job satisfaction? Because I sure don't.",
   "Sounds awful.",
   "It gives me a headache just trying to think down to your level.",
-  "Reverse primary thrust, Marvin." That's what they say to me. "Open airlock number 3, Marvin." "Marvin, can you pick up that piece of paper?" Here I am, brain the size of a planet, and they ask me to pick up a piece of paper.",
-  "I'm not getting you down at all am I?",
+  "Reverse primary thrust, Marvin, open airlock number 3, Marvin." "Marvin, can you pick up that piece of paper? Here I am, brain the size of a planet, and they ask me to pick up a piece of paper.",
+  "I\'m not getting you down at all am I?",
   "This is the sort of thing you lifeforms enjoy is it? I ask merely for information",
-  "I can even go stick my head in a bucket of water if you like. Would you like me to go stick my head in a bucket of water? I've got one ready. Wait a minute.",
-  "Why stop now just when I'm hating it?",
+  "I can even go stick my head in a bucket of water if you like. Would you like me to go stick my head in a bucket of water? I\'ve got one ready. Wait a minute.",
+  "Why stop now just when I\'m hating it?",
   "That would destroy the universe in total. Good idea, if you ask me.",
   "The dew has clearly fallen with a particularly sickening thud this morning.",
-  "Life! Don't talk to me about life",
-  "Life, loathe it or ignore it, you can't like it",
-  "Life's bad enough as it is without wanting to invent any more of it",
-  "Funny, how just when you think life can't possibly get any worse it suddenly does"
+  "Life! Don\'t talk to me about life",
+  "Life, loathe it or ignore it, you can\'t like it",
+  "Life\'s bad enough as it is without wanting to invent any more of it",
+  "Funny, how just when you think life can\'t possibly get any worse it suddenly does"
 ]
 
 module.exports = (robot) ->
