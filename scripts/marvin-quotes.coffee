@@ -26,7 +26,7 @@ quotes = [
   "Here I am brain the size of a planet, and they ask me to take you to the bridge. Call that job satisfaction? Because I sure don't.",
   "Sounds awful.",
   "It gives me a headache just trying to think down to your level.",
-  "Reverse primary thrust, Marvin, open airlock number 3, Marvin." "Marvin, can you pick up that piece of paper? Here I am, brain the size of a planet, and they ask me to pick up a piece of paper.",
+  "'Reverse primary thrust, Marvin, open airlock number 3, Marvin, can you pick up that piece of paper? Here I am, brain the size of a planet, and they ask me to pick up a piece of paper.'",
   "I\'m not getting you down at all am I?",
   "This is the sort of thing you lifeforms enjoy is it? I ask merely for information",
   "I can even go stick my head in a bucket of water if you like. Would you like me to go stick my head in a bucket of water? I\'ve got one ready. Wait a minute.",
