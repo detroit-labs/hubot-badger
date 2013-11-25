@@ -9,6 +9,9 @@
 #
 # Commands:
 #   gone but not forgotten - Display a fallen comrade
+#   gont and forgotten - Display someone you are glad to see gone
+#   hubot dont forget <image-url> - Add a fallen comrade
+#   hubot you can forget <image-url> - Add a douchelord
 #
 # Author:
 #   nwest
