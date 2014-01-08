@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   None
+#   mmm(3+) - triggers a random Homer Simpson "Mmm..." quote
 #
 # Author:
 #   macklinu
@@ -130,3 +130,7 @@ quotes = [
   "Mmm... white chocolate.",
   "Mmm... freedom fries."
 ]
+
+module.exports = (robot) ->
+  robot.hear /(\m)\1\1/i, (msg) ->
+    msg.send msg.random quotes
