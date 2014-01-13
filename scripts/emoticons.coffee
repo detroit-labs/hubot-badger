@@ -21,6 +21,6 @@ module.exports = (robot) ->
     hipchatter.emoticons {'type': 'group'}, (err, res) ->
       if not err
         emoticons = res.map (emoticon) -> 
-          emoticon.shortcut + ' (' + emoticon.shortcut + ')'
+          "#{emoticon.shortcut} (#{emoticon.shortcut})"
         msg.send emoticons.join('\n')
       else msg.send 'Couldn\'t get the emoticons (sadpanda)'
