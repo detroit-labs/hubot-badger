@@ -6,6 +6,11 @@
 #   hubot animate me <query> - The same thing as `image me`, except adds a few parameters to try to return an animated GIF instead.
 #   hubot mustache me <url> - Adds a mustache to the specified URL.
 #   hubot mustache me <query> - Searches Google Images for the specified query and mustaches it.
+#   hubot set safesearch [on|off] - set whether safe search is enabled for this room
+#   hubot get safesearch - return whether safe search is enabled for this room
+#   hubot <query> bomb <count> - return a bomb of images, default 5 images returned
+#   hubot <query> abomb <count> - return a bomb of animate images, default 5 images returned
+#   hubot <query> mbomb <count> - return a bomb of mustached people, default 5 images returned
 
 module.exports = (robot) ->
 
