@@ -60,19 +60,13 @@ mustachMe = (msg, query, cb) ->
       cb "#{mustachify}#{randomImageUrl(msg, images)}"
 
 imageMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, ''), (images) ->
-    for i in [1..count] by 1
-      cb randomImageUrl(msg, images)
+  googleApi msg, imageQuery(msg, query, ''), count, cb
 
 animateMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'animated'), (images) ->
-    for i in [1..count] by 1
-      cb randomImageUrl(msg, images)
+  googleApi msg, imageQuery(msg, query, 'animated'), count, cb
 
 faceMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'face'), (images) ->
-    for i in [1..count] by 1
-      cb randomImageUrl(msg, images)
+  googleApi msg, imageQuery(msg, query, 'face'), count, cb
 
 imageQuery = (msg, query, type) ->
   safe_search_off = msg.robot.brain.get(lookup_id(msg)) == "off"
@@ -83,14 +77,15 @@ imageQuery = (msg, query, type) ->
   q.imgtype = type
   q
   
-googleApi = (msg, q, cb) ->
+googleApi = (msg, q, count, cb) ->
   msg.http('http://ajax.googleapis.com/ajax/services/search/images')
     .query(q)
     .get() (err, res, body) ->
       images = JSON.parse(body)
       images = images.responseData?.results
       if images?.length > 0
-        cb images  
+        for i in [1..count] by 1
+          cb randomImageUrl(msg, images) 
     
 randomImageUrl = (msg, images) ->
   image = msg.random images
