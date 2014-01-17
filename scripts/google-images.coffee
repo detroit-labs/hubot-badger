@@ -12,6 +12,8 @@
 #   hubot <query> abomb <count> - return a bomb of animate images, default 5 images returned
 #   hubot <query> mbomb <count> - return a bomb of mustached people, default 5 images returned
 
+default_bomb = 3
+
 module.exports = (robot) ->
 
   robot.respond /set safe(-| )?search (on|off)/i, (msg) ->
@@ -34,17 +36,17 @@ module.exports = (robot) ->
       msg.send url
     
   robot.respond /(.*) bomb( (\d+))?/i, (msg) ->
-    count = msg.match[3] || 5
+    count = msg.match[3] || default_bomb
     imageMe msg, msg.match[1], count, (url) ->
       msg.send url
       
   robot.respond /(.*) abomb( (\d+))?/i, (msg) ->
-    count = msg.match[3] || 5
+    count = msg.match[3] || default_bomb
     animateMe msg, msg.match[1], count, (url) ->
       msg.send url
     
   robot.respond /(.*) mbomb( (\d+))?/i, (msg) ->
-    count = msg.match[3] || 5
+    count = msg.match[3] || default_bomb
     faceMe msg, msg.match[1], count, (url) ->
       mustachMe msg, url, (mustachUrl) ->
         msg.send mustachUrl
