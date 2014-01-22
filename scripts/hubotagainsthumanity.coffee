@@ -160,6 +160,8 @@ questions = [
 ]
 
 answers = [
+  "(doge).",
+  "(dickbutt).",
   "Tweeting.",
   "72 virgins.",
   "8 oz. of sweet Mexican black-tar heroin.",
