@@ -20,7 +20,7 @@ module.exports = (robot) ->
     order = msg.match[2]
     time = msg.match[3]
     
-    if subreddit is "spacedicks"
+    if subreddit.toLowerCase() is "spacedicks"
       msg.send "Nope."
       return
  
