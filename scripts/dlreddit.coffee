@@ -19,6 +19,9 @@ module.exports = (robot) ->
     subreddit = msg.match[1]
     order = msg.match[2]
     time = msg.match[3]
+    
+    if subreddit is "spacedicks"
+      return "Nope."
  
     url = "http://reddit.com/r/#{subreddit}.json?"
  
