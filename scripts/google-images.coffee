@@ -16,19 +16,19 @@ default_bomb = 3
 
 module.exports = (robot) ->
 
-  robot.respond /set safe(-| )?search (on|off)/i, (msg) ->
-    msg.robot.brain.set lookup_id(msg), msg.match[2].toLowerCase()
-    msg.send "safesearch is turned " + msg.match[2];
+  robot.respond /set safe(?:-| )?search (on|off)/i, (msg) ->
+    msg.robot.brain.set lookup_id(msg), msg.match[1].toLowerCase()
+    msg.send "safesearch is turned " + msg.match[1];
 
   robot.respond /get safe(-| )?search/i, (msg) ->
     msg.send "safesearch is turned " + msg.robot.brain.get lookup_id(msg)
 
-  robot.respond /(image|img)( me)? (.*)/i, (msg) ->
-    imageMe msg, msg.match[3], 1, (url) ->
+  robot.respond /(?:image|img)(?: me)? (.*)/i, (msg) ->
+    imageMe msg, msg.match[1], 1, (url) ->
       msg.send url
 
-  robot.respond /animate( me)? (.*)/i, (msg) ->
-    animateMe msg, msg.match[3], 1, (url) ->
+  robot.respond /animate(?: me)? (.*)/i, (msg) ->
+    animateMe msg, msg.match[1], 1, (url) ->
       msg.send url
 
   robot.respond /(?:mo?u)?sta(?:s|c)he?(?: me)? (.*)/i, (msg) ->
