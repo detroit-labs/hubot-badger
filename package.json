@@ -24,7 +24,8 @@
     "hubot-scripts": "2.5.6",
     "hubot-hipchat": "~2.5.1-4",
     "request": "~2.25.0",
-    "hipchatter": "~0.1"
+    "hipchatter": "~0.1",
+    "googlemaps": "0.1.9"
   },
   "engines": {
     "node": ">= 0.10.x",
