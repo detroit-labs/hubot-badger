@@ -85,12 +85,13 @@ googleApi = (msg, q, count, cb) ->
     .get() (err, res, body) ->
       images = JSON.parse(body)
       images = images.responseData?.results
-      if images?.length > 0
-        for i in [1..count] by 1
+      for i in [1..count] by 1
+        if images?.length > 0
           cb randomImageUrl(msg, images) 
     
 randomImageUrl = (msg, images) ->
   image = msg.random images
+  images.splice(images.indexOf(image), 1)
   "#{image.unescapedUrl}#.png"
 		
 lookup_id = (msg) ->
