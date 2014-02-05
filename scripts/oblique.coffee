@@ -9,5 +9,5 @@ module.exports = (robot) ->
 
 oblique = (msg, cb) ->
   msg.http('http://stoney.sb.org/eno/oblique.html').get() (err, res, body) ->
-    response = body.match(/<h3>(.*?)<\/h3>/);
+    response = body.match(/<H3>(.*?)<\/H3>/);
     cb response?[1] || "The oracle is silent"
