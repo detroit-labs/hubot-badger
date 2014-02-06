@@ -28,5 +28,6 @@
   "sheits.coffee",
   "jenkins.coffee",
   "darksky.coffee",
-  "oblique.coffee"
+  "oblique.coffee",
+  "giphy.coffee"
 ]
