@@ -25,7 +25,8 @@
     "hubot-hipchat": "git://github.com/maschall/hubot-hipchat.git#exclude-rooms",
     "request": "~2.25.0",
     "hipchatter": "~0.1",
-    "googlemaps": "0.1.9"
+    "googlemaps": "0.1.9",
+    "cool-ascii-faces": "1.3.3"
   },
   "engines": {
     "node": ">= 0.10.x",
