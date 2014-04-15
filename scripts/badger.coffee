@@ -33,3 +33,14 @@ module.exports = (robot) ->
       res.end "OK"
     else
       res.end "Nope."
+
+  robot.router.post "/remind", (req, res) ->
+    hmac = crypto.createHmac "md5", process.env.HUBOT_BADGER_KEY
+    hmac.update JSON.stringify req.body
+
+    if req.header("X-BADGER-HMAC-MD5") == hmac.digest("hex")
+      payload = req.body
+      robot.messageRoom payload["room"], [payload["message"]]
+      res.end "OK"
+    else
+      res.end "Nope."
