@@ -17,11 +17,11 @@ default_bomb = 3
 module.exports = (robot) ->
 
   robot.respond /set safe(?:-| )?search (on|off)/i, (msg) ->
-    msg.robot.brain.set lookup_id(msg), msg.match[1].toLowerCase()
+    msg.robot.brain.set safesearch_lookup_id(msg), msg.match[1].toLowerCase()
     msg.send "safesearch is turned " + msg.match[1];
 
   robot.respond /get safe(-| )?search/i, (msg) ->
-    msg.send "safesearch is turned " + msg.robot.brain.get lookup_id(msg)
+    msg.send "safesearch is turned " + msg.robot.brain.get safesearch_lookup_id(msg)
 
   robot.respond /(?:image|img)(?: me)? (.*)/i, (msg) ->
     imageMe msg, msg.match[1], 1, (url) ->
@@ -50,6 +50,23 @@ module.exports = (robot) ->
     faceMe msg, msg.match[1], count, (url) ->
       mustachMe msg, url, (mustachUrl) ->
         msg.send mustachUrl
+
+  imagethat=/img( )?that/i
+
+  robot.respond imagethat, (msg) ->
+    imageMe msg, msg.robot.brain.get(imgthat_lookup_id(msg)), 1, (url) ->
+      msg.send url
+		
+  animatethat=/animate( )?that/i
+  
+  robot.respond animatethat, (msg) ->
+    animateMe msg, msg.robot.brain.get(imgthat_lookup_id(msg)), 1, (url) ->
+      msg.send url
+      
+  robot.hear /.*/, (msg) ->
+    message = msg.match[0]
+    if ( !imagethat.test(message ) && !animatethat.test(message))
+      msg.robot.brain.set imgthat_lookup_id(msg), message 
       
 mustachMe = (msg, query, cb) ->
   type = Math.floor(Math.random() * 3)
@@ -71,7 +88,7 @@ faceMe = (msg, query, count, cb) ->
   googleApi msg, imageQuery(msg, query, 'face'), count, cb
 
 imageQuery = (msg, query, type) ->
-  safe_search_off = msg.robot.brain.get(lookup_id(msg)) == "off"
+  safe_search_off = msg.robot.brain.get(safesearch_lookup_id(msg)) == "off"
   cb = animated if typeof animated == 'function'
   cb = faces if typeof faces == 'function'
   q = v: '1.0', rsz: 8, q: query, safe: 'active'
@@ -95,4 +112,10 @@ randomImageUrl = (msg, images) ->
   "#{image.unescapedUrl}#.png"
 		
 lookup_id = (msg) ->
-  'safesearch_' + (msg.envelope.room or msg.envelope.user.id)
+  (msg.envelope.room or msg.envelope.user.id)
+	
+safesearch_lookup_id = (msg) ->
+	'safesearch_' + lookup_id(msg)
+	
+imgthat_lookup_id = (msg) ->
+	'imgthat_' + lookup_id(msg)
