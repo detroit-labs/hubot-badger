@@ -11,6 +11,8 @@
 #   hubot <query> bomb <count> - return a bomb of images, default 5 images returned
 #   hubot <query> abomb <count> - return a bomb of animate images, default 5 images returned
 #   hubot <query> mbomb <count> - return a bomb of mustached people, default 5 images returned
+#   hubot imgthat - return an image of the last mentioned phrase
+#   hubot animatethat - return a animated image of the last mentioned phrase
 
 default_bomb = 3
 
