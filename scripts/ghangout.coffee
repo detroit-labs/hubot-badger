@@ -20,15 +20,12 @@ module.exports = (robot) ->
 	robot.respond /(ghangout|ghang)(?: me)?\s(.*)/i, (msg) ->
 		roomName = msg.match[2]
 
-		if not roomName.length
-			msg.send "Something's gone terribly wrong, try a different name, maybe?"
-			return
-
 		roomName = roomName.replace /[^\w\s]/gi, ""
 		roomName = roomName.replace /(\s)/g, ""
 		
-		if roomName.length
-			msg.send "https://plus.google.com/hangouts/_/detroitlabs.com/#{roomName}"
-			msg.send "Or join room \"#{roomName}\" via a Chromebox"
-		else
-			msg.send "Something's gone terribly wrong, try a different name, maybe?"
+		if not roomName.length
+			roomName = msg.envelope.room
+			msg.send "I didn't understand that room name, but here's one you can use anyway."
+
+		msg.send "https://plus.google.com/hangouts/_/detroitlabs.com/#{roomName}"
+		msg.send "Or join room \"#{roomName}\" via a Chromebox"
