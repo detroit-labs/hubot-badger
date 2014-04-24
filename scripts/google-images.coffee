@@ -77,18 +77,26 @@ mustachMe = (msg, query, cb) ->
   if query.match /^https?:\/\//i
     cb "#{mustachify}#{query}"
   else
-    faceMe msg, query, 1, (images) ->
-      cb "#{mustachify}#{randomImageUrl(msg, images)}"
+    faceMe msg, query, 1, (image) ->
+      null_check_callback(image, cb)
 
 imageMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, ''), count, cb
+  googleApi msg, imageQuery(msg, query, ''), count, (image) ->
+      null_check_callback(image, cb)
 
 animateMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'animated'), count, cb
+  googleApi msg, imageQuery(msg, query, 'animated'), count, (image) ->
+      null_check_callback(image, cb)
 
 faceMe = (msg, query, count, cb) ->
   googleApi msg, imageQuery(msg, query, 'face'), count, cb
-
+  
+null_check_callback = (image, cb) ->
+  if image?
+    cb image
+  else
+    cb 'No Images Found'
+  
 imageQuery = (msg, query, type) ->
   safe_search_off = msg.robot.brain.get(safesearch_lookup_id(msg)) == "off"
   cb = animated if typeof animated == 'function'
@@ -104,9 +112,15 @@ googleApi = (msg, q, count, cb) ->
     .get() (err, res, body) ->
       images = JSON.parse(body)
       images = images.responseData?.results
+      number_returned = 0
       for i in [1..count] by 1
         if images?.length > 0
-          cb randomImageUrl(msg, images) 
+          cb randomImageUrl(msg, images)
+          number_returned++
+        else
+          if number_returned is 0
+            cb null
+          break
     
 randomImageUrl = (msg, images) ->
   image = msg.random images
