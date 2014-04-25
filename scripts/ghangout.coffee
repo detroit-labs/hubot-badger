@@ -30,7 +30,7 @@ module.exports = (robot) ->
 	robot.respond /(?:ghangout|ghang)(?: me)?\s(.*)/i, (msg) ->
 		roomName = msg.match[1]
 
-		if roomName is "random" or "rand"
+		if roomName in ["random","rand"]
 			roomName = msg.random defaultRooms
 
 		roomName = parseRoomName(roomName)
