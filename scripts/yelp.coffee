@@ -34,7 +34,7 @@ businessView = (business) ->
   """
   You should go to #{business.name}
   #{business.url}
-  #{business.photo_url}
+  #{business.photo_url}#.jpg
   """
 
 module.exports = (robot) ->
