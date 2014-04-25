@@ -27,15 +27,18 @@ defaultRooms = [
 ]
 
 module.exports = (robot) ->
-	robot.respond /(ghangout|ghang)(?: me)?\s(.*)/i, (msg) ->
-		roomName = msg.match[2]
+	robot.respond /(?:ghangout|ghang)(?: me)?\s(.*)/i, (msg) ->
+		roomName = msg.match[1]
+
+		if roomName is "random" or "rand"
+			roomName = msg.random defaultRooms
 
 		roomName = parseRoomName(roomName)
 
 		if not roomName.length
 			roomName = parseRoomName(msg.envelope.room)
 			if not roomName.length
-				roomName = defaultRooms[Math.floor(Math.random() * defaultRooms.length)]
+				roomName = msg.random defaultRooms
 			msg.send "I didn't understand that room name, but here's one you can use anyway."
 
 		msg.send "https://plus.google.com/hangouts/_/detroitlabs.com/#{roomName}"
