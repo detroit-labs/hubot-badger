@@ -30,15 +30,20 @@ module.exports = (robot) ->
     msg.robot.brain.remove wfh_id(msg)
   
   robot.respond /wfh (.*)/i, (msg) ->
-    msg.robot.brain.set wfh_id(msg), msg.match[1]
+    wfh_message =
+      message: msg.match[1]
+      day: new Date
+      
+    msg.robot.brain.set wfh_id(msg), wfh_message 
     msg.send "Got it!"
     
   robot.hear /why is (.*) not here/i, (msg) ->
-    reason = msg.robot.brain.get msg.match[1]
-    if reason
-      msg.send reason
+    reason = msg.robot.brain.get ('wfh_' + msg.match[1])
+    
+    if reason? and ( reason.day.setHours(0,0,0,0) == ((new Date).setHours(0,0,0,0)) )
+      msg.send reason.message
     else
       msg.send msg.random(unknown_messages)
   
 wfh_id = (msg) ->
-  '@' + msg.envelope.user.mention_name
+  'wfh_@' + msg.envelope.user.mention_name
