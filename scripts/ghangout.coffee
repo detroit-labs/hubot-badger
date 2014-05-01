@@ -27,13 +27,12 @@ defaultRooms = [
 ]
 
 module.exports = (robot) ->
-	robot.respond /(?:ghangout|ghang)(?: me)?\s(.*)/i, (msg) ->
+	robot.respond /(?:ghangout|ghang)(?: me)?(.*)/i, (msg) ->
 		roomName = msg.match[1]
+		roomName = parseRoomName(roomName)	
 
-		if roomName in ["random","rand"]
+		if roomName.toLowerCase() in ["random","rand"]
 			roomName = msg.random defaultRooms
-
-		roomName = parseRoomName(roomName)
 
 		if not roomName.length
 			roomName = parseRoomName(msg.envelope.room)
