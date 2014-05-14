@@ -26,7 +26,8 @@
     "request": "~2.25.0",
     "hipchatter": "~0.1",
     "googlemaps": "0.1.9",
-    "cool-ascii-faces": "1.3.3"
+    "cool-ascii-faces": "1.3.3",
+    "underscore": "1.6.0"
   },
   "engines": {
     "node": ">= 0.10.x",
