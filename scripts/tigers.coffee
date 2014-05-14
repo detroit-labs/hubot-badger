@@ -158,5 +158,10 @@ module.exports = (robot) ->
     sorted = _.sortBy(games, (g) ->
       g.date)
 
-    for game in sorted
-      msg.send (game.date.getMonth() + 1) + "/" +  game.date.getDate() + " " + game.desc
+    message = ""
+    for game, index in games
+      message += ((game.date.getMonth() + 1) + "/" +  game.date.getDate() + " " + game.desc)
+      if index != games.length - 1
+        message += "\n"
+
+    msg.send message
