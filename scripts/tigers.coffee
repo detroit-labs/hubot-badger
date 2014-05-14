@@ -152,8 +152,11 @@ module.exports = (robot) ->
     now = Date.today().add(-1).days()
     next_week = (7).days().fromNow()
 
-    games = _.filter(dates, (d) ->
-      d.date.isAfter(now) && d.date.isBefore(next_week))
+    games = _.filter(dates, (g) ->
+      g.date.isAfter(now) && g.date.isBefore(next_week))
 
-    for game in games
+    sorted = _.sortBy(games, (g) ->
+      g.date)
+
+    for game in sorted
       msg.send (game.date.getMonth() + 1) + "/" +  game.date.getDate() + " " + game.desc
