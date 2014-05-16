@@ -56,18 +56,21 @@ slapResponses = [
 
 LOWER = 3
 UPPER = 7
-hp = 100
+MIN_HP = 0
+MAX_HP = 100
+hp = MAX_HP
 
 module.exports = (robot) ->
   robot.respond /botsnack/i, (msg) ->
-    respondToSnack(msg)
+    respondToSnack msg
 
   robot.respond /botslap/i, (msg) ->
     decreaseHp()
-    if hp <= 0 then killBot(msg) else respondToSlap(msg)
+    if hp <= MIN_HP then killBot msg  else respondToSlap msg 
 
   increaseHp = ->
     hp += randomInt LOWER, UPPER
+    if hp > MAX_HP then hp = MAX_HP
 
   respondToSnack = (msg) ->
     increaseHp()
