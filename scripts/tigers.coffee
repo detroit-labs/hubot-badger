@@ -1,4 +1,4 @@
-#, Description:
+# Description:
 #   Returns this week's tiger's schedule
 #
 # Dependencies:
