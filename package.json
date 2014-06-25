@@ -22,7 +22,7 @@
   "dependencies": {
     "hubot": ">= 2.6.0 < 3.0.0",
     "hubot-scripts": "2.5.8",
-    "hubot-hipchat": "git://github.com/maschall/hubot-hipchat.git#exclude-rooms",
+    "hubot-hipchat": ">= 2.7.5",
     "request": "~2.25.0",
     "hipchatter": "~0.1",
     "googlemaps": "0.1.9",
