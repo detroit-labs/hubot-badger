@@ -20,25 +20,26 @@
 # Author:
 #   maschall
 
-email = require 'emailjs/email'
+nodemailer = require 'nodemailer' 
 
-server = email.server.connect ({
-  user: process.env.HUBOT_ANNOUNCEMENT_EMAIL_USER,
-  password: process.env.HUBOT_ANNOUNCEMENT_EMAIL_PASSWORD,
-  host: "smtp.gmail.com",
-  ssl: true,
-  port: 465,
-  domain: "gmail.com",
+server = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: process.env.HUBOT_ANNOUNCEMENT_EMAIL_USER,
+        pass: process.env.HUBOT_ANNOUNCEMENT_EMAIL_PASSWORD
+    }
 })
 
 module.exports = (robot) ->
+  
   robot.hear new RegExp(process.env.HUBOT_ANNOUNCEMENT_TRIGGER_WORD + " (.*)", "i"), (msg) ->
-    subject = msg.envelope.user.mention_name + " announced"
+    subject = msg.envelope.user.name + " announced"
     message = {
       text: msg.match[1],
       to: process.env.HUBOT_ANNOUNCEMENT_EMAIL_LIST,
+      from: process.env.HUBOT_ANNOUNCEMENT_EMAIL_USER,
       subject: subject
     }
     
-    server.send message, (err, message) ->
+    server.sendMail message, (err, message) ->
       msg.send err if err
