@@ -32,7 +32,7 @@ server = nodemailer.createTransport({
 
 module.exports = (robot) ->
   
-  robot.hear new RegExp(process.env.HUBOT_ANNOUNCEMENT_TRIGGER_WORD + " (.*)", "i"), (msg) ->
+  robot.hear new RegExp("^" + process.env.HUBOT_ANNOUNCEMENT_TRIGGER_WORD + " (.*)", "i"), (msg) ->
     subject = msg.envelope.user.name + " announced"
     message = {
       text: msg.match[1],
