@@ -15,5 +15,6 @@
   "jenkins.coffee",
   "darksky.coffee",
   "giphy.coffee",
-  "disassemble.coffee"
+  "disassemble.coffee",
+  "eight-ball.coffee"
 ]
