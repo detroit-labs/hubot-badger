@@ -16,5 +16,6 @@
   "darksky.coffee",
   "giphy.coffee",
   "disassemble.coffee",
-  "eight-ball.coffee"
+  "eight-ball.coffee",
+  "lmgtfy.coffee"
 ]
