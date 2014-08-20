@@ -1,5 +1,5 @@
 # Description:
-#   creates a distributed list for chat
+#   creates a distributed list for chat using hashtags
 #
 # Dependencies:
 #   None
@@ -23,30 +23,30 @@ module.exports = (robot) ->
     listName = msg.match[1]
     
     if getList(msg, listName)?
-      msg.send listName + " was already created"
+      msg.send "##{listName} has already been created"
     else
       addList(msg, listName)
-      msg.send listName + " was created"
+      msg.send "##{listName} was created"
 
   robot.respond /add me to #([\w]+)$/i, (msg) ->
     skipTheHear = true
     listName = msg.match[1]
     
-    if getList(msg, listName )?
-      addToList(msg, listName )
-      msg.send userName(msg) + " has been added to #" + listName 
+    if getList(msg, listName)?
+      addToList(msg, listName)
+      msg.send "#{userName(msg)} has been added to ##{listName}"
     else
-      msg.send listName  + " has not been created"
+      msg.send "##{listName} has not been created"
       
   robot.respond /remove me from #([\w]+)$/i, (msg) ->
     skipTheHear = true
     listName = msg.match[1]
     
-    if getList(msg, listName )?
-      removeFromList(msg, listName )
-      msg.send userName(msg) + " has been removed from #" + listName
+    if getList(msg, listName)?
+      removeFromList(msg, listName)
+      msg.send "#{userName(msg)} has been removed from ##{listName}"
     else
-      msg.send listName + " has not been created"
+      msg.send "##{listName} has not been created"
 
   robot.hear /#([\w]+)/i, (msg) ->
     if skipTheHear
@@ -55,11 +55,11 @@ module.exports = (robot) ->
       listName = msg.match[1]
       names = getUserNamesForList(msg, listName)
       if names.length > 0
-        msg.send "^ " + names
+        msg.send "^#{names}"
       
 
 listKey = (name) ->
-  "distributedList" + name.toLowerCase()
+  "distributedList#{name.toLowerCase()}"
 
 getList = (msg, name) ->
   msg.robot.brain.get listKey(name)
@@ -74,7 +74,7 @@ addToList = (msg, name) ->
     msg.robot.brain.set listKey(name), list
     
 userName = (msg) ->
-  "@" + msg.envelope.user.mention_name
+  "@#{msg.envelope.user.mention_name}"
 
 removeFromList = (msg, name) ->
   list = getList msg, name
@@ -85,6 +85,4 @@ removeFromList = (msg, name) ->
     
 getUserNamesForList = (msg, name) ->
   list = getList msg, name
-  names = ""
-  for userName in list
-    names + " " + userName
+  list.toString()
