@@ -17,5 +17,6 @@
   "giphy.coffee",
   "disassemble.coffee",
   "eight-ball.coffee",
-  "lmgtfy.coffee"
+  "lmgtfy.coffee",
+  "emoji.coffee"
 ]
