@@ -45,5 +45,5 @@ module.exports = (robot) ->
 
 
 	parseRoomName = (roomName) ->
-		roomName = roomName.replace /[^\w\s]/gi, ""
+		roomName = roomName.replace /[^\w\s\-\_]/gi, ""
 		roomName = roomName.replace /(\s)/g, ""
