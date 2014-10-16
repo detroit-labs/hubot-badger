@@ -1,6 +1,5 @@
 # Description:
 #   Marvin, the Paranoid Android, from The Hitchhiker's Guide to the Galaxy
-#
 # Dependencies:
 #   None
 #
@@ -44,5 +43,5 @@ module.exports = (robot) ->
   robot.hear /you saved me/, (msg) ->
     msg.send "I know. Wretched isn't it?"
 
-  robot.hear /(.*)(life)(.*)/i, (msg) ->
+  robot.respond /life/i, (msg) ->
     msg.send msg.random quotes
