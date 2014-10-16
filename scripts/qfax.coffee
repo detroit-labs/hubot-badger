@@ -15,5 +15,5 @@
 #   nwest
 
 module.exports = (robot) ->
-  robot.hear /[^@]qfax/, (msg) ->
+  robot.hear /[^\@]?qfax/, (msg) ->
     msg.send "does anyone know what qfax@detroitlabs.com is?"
