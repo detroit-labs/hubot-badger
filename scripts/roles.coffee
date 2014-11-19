@@ -122,7 +122,7 @@ module.exports = (robot) ->
     msg.send prettyArrayString(people)
 
   prettyObjectString = (object) ->
-    _.map(object, (key, value) -> "#{key}: #{value}").join("/n")
+    _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
 
   prettyArrayString = (array) ->
     array.join(", ")
