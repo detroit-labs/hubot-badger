@@ -35,41 +35,6 @@ currentRolesKey = (room) ->
   "roles-current-#{room}"
 
 module.exports = (robot) ->
-  robot.respond /roles people$/i, (msg) ->
-    people = robot.brain.get peopleKey(msg.envelope.room)
-    if !people or _.isEmpty(people)
-      msg.send "None"
-    else
-      msg.send prettyArrayString(people)
-
-  robot.respond /roles people add (.*)/i, (msg) ->
-    key = peopleKey(msg.envelope.room)
-    people = robot.brain.get(key)
-    if !people
-      people = []
-
-    people.push msg.match[1]
-    robot.brain.set(key, people)
-    msg.send prettyArrayString(people)
-
-  robot.respond /roles people rm (.*)/i, (msg) ->
-    personToRemove = msg.match[1]
-    peopleKey = peopleKey(msg.envelope.room)
-    people = robot.brain.get(peopleKey)
-    index = people.indexOf personToRemove
-    if index > -1
-      people.splice(index, 1)
-      robot.brain.set(peopleKey, people)
-      msg.send prettyArrayString(people)
-    else
-      msg.send "Not found"
-  
-  robot.respond /roles people set (.*)/i, (msg) ->
-    people = msg.match[1].split(",")
-    peopleKey = peopleKey(msg.envelope.room)
-    robot.brain.set(peopleKey, people)
-    msg.send prettyArrayString(people)
-
   robot.respond /roles$/i, (msg) ->
     currentRoles = robot.brain.get(currentRolesKey(msg.envelope.room))
     msg.send prettyObjectString(currentRoles)
@@ -120,6 +85,41 @@ module.exports = (robot) ->
       newRoles = _.object(roles, _.sample(people, roles.length))
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
+
+  robot.respond /roles people$/i, (msg) ->
+    people = robot.brain.get peopleKey(msg.envelope.room)
+    if !people or _.isEmpty(people)
+      msg.send "None"
+    else
+      msg.send prettyArrayString(people)
+
+  robot.respond /roles people add (.*)/i, (msg) ->
+    key = peopleKey(msg.envelope.room)
+    people = robot.brain.get(key)
+    if !people
+      people = []
+
+    people.push msg.match[1]
+    robot.brain.set(key, people)
+    msg.send prettyArrayString(people)
+
+  robot.respond /roles people rm (.*)/i, (msg) ->
+    personToRemove = msg.match[1]
+    peopleKey = peopleKey(msg.envelope.room)
+    people = robot.brain.get(peopleKey)
+    index = people.indexOf personToRemove
+    if index > -1
+      people.splice(index, 1)
+      robot.brain.set(peopleKey, people)
+      msg.send prettyArrayString(people)
+    else
+      msg.send "Not found"
+  
+  robot.respond /roles people set (.*)/i, (msg) ->
+    people = msg.match[1].split(",")
+    peopleKey = peopleKey(msg.envelope.room)
+    robot.brain.set(peopleKey, people)
+    msg.send prettyArrayString(people)
 
   prettyObjectString = (object) ->
     _.map(object, (key, value) -> "#{key}: #{value}").join("/n")
