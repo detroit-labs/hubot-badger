@@ -8,8 +8,8 @@
 #   None
 #
 # Commands:
-#   redbull
-#   bull
+#   hubot redbull
+#   hubot bull
 #
 # Author:
 #   nwest
