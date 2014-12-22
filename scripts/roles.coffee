@@ -35,6 +35,19 @@ peopleKey = (room) ->
 currentRolesKey = (room) ->
   "roles-current-#{room}"
 
+prettyObjectString = (object) ->
+  _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
+
+prettyArrayString = (array) ->
+  array.join(", ")
+
+parseCommaSeparatedString = (string) ->
+  string.split(/\s*,\s*/)
+
+removeObjects = (source, itemsToRemove) ->
+  _.reject(source, (item) ->
+    itemsToRemove.indexOf(item) > -1)
+
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
     currentRoles = robot.brain.get(currentRolesKey(msg.envelope.room))
@@ -58,10 +71,9 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
 
   robot.respond /roles set (.*)/i, (msg) ->
-    roles = parseCommaSeparatedString(msg.match[1])
-    rolesKey = rolesKey(msg.envelope.room)
-    robot.brain.set(rolesKey, roles)
-    msg.send prettyArrayString(roles)
+    key = rolesKey(msg.envelope.room)
+    robot.brain.set(key, parseCommaSeparatedString(msg.match[1]))
+    msg.send stringWithKey(key)
 
   robot.respond /roles shuffle/i, (msg) ->
     roles = robot.brain.get rolesKey(msg.envelope.room)
@@ -75,7 +87,7 @@ module.exports = (robot) ->
       msg.send prettyObjectString(newRoles)
 
   robot.respond /roles people$/i, (msg) ->
-    people = robot.brain.get peopleKey(msg.envelope.room)
+    people = robot.brain.get(peopleKey(msg.envelope.room))
     if !people or _.isEmpty(people)
       msg.send "None"
     else
@@ -92,34 +104,19 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
   
   robot.respond /roles people set (.*)/i, (msg) ->
-    people = parseCommaSeparatedString(msg.match[1])
-    peopleKey = peopleKey(msg.envelope.room)
-    robot.brain.set(peopleKey, people)
-    msg.send prettyArrayString(people)
+    key = peopleKey(msg.envelope.room)
+    robot.brain.set(key, parseCommaSeparatedString(msg.match[1]))
+    msg.send stringWithKey(key)
 
-  prettyObjectString = (object) ->
-    _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
-
-  prettyArrayString = (array) ->
-    array.join(", ")
-
-  parseCommaSeparatedString = (string) ->
-    string.split(/\s*,\s*/)
-
-  removeObjects = (source, itemsToRemove) ->
-    _.reject(source, (item) ->
-      itemsToRemove.indexOf(item) > -1)
+  stringWithKey = (key) ->
+    prettyArrayString(robot.brain.get(key))
 
   addObjectsToKey = (objects, key) ->
     existingObjects = robot.brain.get(key)
     if !existingObjects
       existingObjects = []
-
     existingObjects.push object for object in objects
     robot.brain.set(key, existingObjects)
-
-  stringWithKey = (key) ->
-    prettyArrayString(robot.brain.get(key))
 
   removeObjectsFromKey = (objects, key) ->
     existing = robot.brain.get(key)
