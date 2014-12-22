@@ -128,6 +128,6 @@ module.exports = (robot) ->
   parseCommaSeparatedString = (string) ->
     string.split(/\s*,\s*/)
 
-  removeObjects(source, itemsToRemove) ->
+  removeObjects = (source, itemsToRemove) ->
     _.reject(source, (item) ->
       itemsToRemove.indexOf(item) > -1)
