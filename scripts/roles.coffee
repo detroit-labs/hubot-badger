@@ -2,7 +2,7 @@
 #   Team Roles
 #
 # Dependencies:
-#   None
+#   underscore
 #
 # Configuration:
 #   None
