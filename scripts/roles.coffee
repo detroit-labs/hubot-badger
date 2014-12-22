@@ -71,7 +71,7 @@ module.exports = (robot) ->
       msg.send "Not found"
 
   robot.respond /roles set (.*)/i, (msg) ->
-    roles = msg.match[1].split(",")
+    roles = parseCommaSeparatedString(msg.match[1])
     rolesKey = rolesKey(msg.envelope.room)
     robot.brain.set(rolesKey, roles)
     msg.send prettyArrayString(roles)
@@ -117,7 +117,7 @@ module.exports = (robot) ->
       msg.send "Not found"
   
   robot.respond /roles people set (.*)/i, (msg) ->
-    people = msg.match[1].split(",")
+    people = parseCommaSeparatedString(msg.match[1])
     peopleKey = peopleKey(msg.envelope.room)
     robot.brain.set(peopleKey, people)
     msg.send prettyArrayString(people)
@@ -127,3 +127,6 @@ module.exports = (robot) ->
 
   prettyArrayString = (array) ->
     array.join(", ")
+
+  parseCommaSeparatedString = (string) ->
+    string.split(/\s*,\s*/)
