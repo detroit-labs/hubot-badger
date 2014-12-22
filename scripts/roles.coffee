@@ -48,13 +48,15 @@ module.exports = (robot) ->
       msg.send prettyArrayString(roles)
 
   robot.respond /roles add (.*)/i, (msg) ->
-    role = msg.match[1]
+    newRoles = parseCommaSeparatedString(msg.match[1])
+    
     key = rolesKey(msg.envelope.room)
     roles = robot.brain.get(key)
     if !roles or _.isEmpty(roles)
       roles = []
 
-    roles.push role
+    roles.push role for role in newRoles
+
     robot.brain.set(key, roles)
     msg.send prettyArrayString(roles)
 
@@ -92,15 +94,16 @@ module.exports = (robot) ->
       msg.send prettyArrayString(people)
 
   robot.respond /roles people add (.*)/i, (msg) ->
-    key = peopleKey(msg.envelope.room)
-    people = robot.brain.get(key)
+    newPeople = parseCommaSeparatedString(msg.match[1])
+    peopleKey = peopleKey(msg.envelope.room)
+    people = robot.brain.get(peopleKey)
     if !people
       people = []
 
-    people.push msg.match[1]
-    robot.brain.set(key, people)
+    people.push person for person in newPeople
+    robot.brain.set(peopleKey, people)
     msg.send prettyArrayString(people)
-
+    
   robot.respond /roles people rm (.*)/i, (msg) ->
     peopleToRemove = parseCommaSeparatedString(msg.match[1])
     peopleKey = peopleKey(msg.envelope.room)
