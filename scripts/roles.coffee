@@ -53,13 +53,9 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
 
   robot.respond /roles rm (.*)/i, (msg) ->
-    rolesToRemove = parseCommaSeparatedString(msg.match[1])
-    rolesKey = rolesKey(msg.envelope.room)
-    roles = robot.brain.get(rolesKey)
-
-    newRoles = removeObjects(roles, rolesToRemove)
-    robot.brain.set(rolesKey, newRoles)
-    msg.send prettyArrayString(newRoles)
+    key = rolesKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
 
   robot.respond /roles set (.*)/i, (msg) ->
     roles = parseCommaSeparatedString(msg.match[1])
@@ -91,13 +87,9 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
     
   robot.respond /roles people rm (.*)/i, (msg) ->
-    peopleToRemove = parseCommaSeparatedString(msg.match[1])
-    peopleKey = peopleKey(msg.envelope.room)
-    people = robot.brain.get(peopleKey)
-
-    newPeople = removeObjects(people, peopleToRemove)
-    robot.brain.set(peopleKey, newPeople)
-    msg.send prettyArrayString(newPeople)
+    key = peopleKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
   
   robot.respond /roles people set (.*)/i, (msg) ->
     people = parseCommaSeparatedString(msg.match[1])
@@ -128,3 +120,8 @@ module.exports = (robot) ->
 
   stringWithKey = (key) ->
     prettyArrayString(robot.brain.get(key))
+
+  removeObjectsFromKey = (objects, key) ->
+    existing = robot.brain.get(key)
+    newObjects = removeObjects(existing, objects)
+    robot.brain.set(key, newObjects)
