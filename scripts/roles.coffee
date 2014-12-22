@@ -54,11 +54,7 @@ module.exports = (robot) ->
     msg.send prettyObjectString(currentRoles)
 
   robot.respond /roles list/i, (msg) ->
-    roles = robot.brain.get(rolesKey(msg.envelope.room))
-    if !roles or _.isEmpty(roles)
-      msg.send "None"
-    else
-      msg.send prettyArrayString(roles)
+    msg.send stringWithKey(rolesKey(msg.envelope.room))
 
   robot.respond /roles add (.*)/i, (msg) ->
     key = rolesKey(msg.envelope.room)
@@ -87,11 +83,7 @@ module.exports = (robot) ->
       msg.send prettyObjectString(newRoles)
 
   robot.respond /roles people$/i, (msg) ->
-    people = robot.brain.get(peopleKey(msg.envelope.room))
-    if !people or _.isEmpty(people)
-      msg.send "None"
-    else
-      msg.send prettyArrayString(people)
+    msg.send stringWithKey(peopleKey(msg.envelope.room))
 
   robot.respond /roles people add (.*)/i, (msg) ->
     key = peopleKey(msg.envelope.room)
@@ -109,7 +101,11 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
 
   stringWithKey = (key) ->
-    prettyArrayString(robot.brain.get(key))
+    objects = robot.brain.get(key)
+    if !objects or _.isEmpty(objects)
+      "None"
+    else
+      prettyArrayString(objects)
 
   addObjectsToKey = (objects, key) ->
     existingObjects = robot.brain.get(key)
