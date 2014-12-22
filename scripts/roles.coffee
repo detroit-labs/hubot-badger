@@ -17,6 +17,7 @@
 #   hubot roles people add <name> - Add a person
 #   hubot roles people rm <name>- Remove a person
 #   hubot roles people set <comma separated people> - Set all people at once
+#   hubot roles shuffle - Randomly assign people to roles
 #
 # Notes:
 #
