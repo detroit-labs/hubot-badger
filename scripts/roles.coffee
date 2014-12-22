@@ -10,13 +10,13 @@
 # Commands:
 #   hubot roles - Show assigned roles
 #   hubot roles list - List available roles
-#   hubot roles add <role> - Add a role
-#   hubot roles rm <role> - remove a role
-#   hubot roles set <comma separated roles> - Set all roles at once
+#   hubot roles add <roles> - Add role(s)
+#   hubot roles rm <roles> - Remove role(s)
+#   hubot roles set <roles> - Set all roles at once
 #   hubot roles people - List people
-#   hubot roles people add <name> - Add a person
-#   hubot roles people rm <name>- Remove a person
-#   hubot roles people set <comma separated people> - Set all people at once
+#   hubot roles people add <names> - Add people
+#   hubot roles people rm <names>- Remove people
+#   hubot roles people set <people> - Set all people at once
 #   hubot roles shuffle - Randomly assign people to roles
 #
 # Notes:
