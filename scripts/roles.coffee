@@ -59,16 +59,13 @@ module.exports = (robot) ->
     msg.send prettyArrayString(roles)
 
   robot.respond /roles rm (.*)/i, (msg) ->
-    roleToRemove = msg.match[1]
+    rolesToRemove = parseCommaSeparatedString(msg.match[1])
     rolesKey = rolesKey(msg.envelope.room)
     roles = robot.brain.get(rolesKey)
-    index = roles.indexOf roleToRemove
-    if index > -1
-      roles.splice(index, 1)
-      robot.brain.set(rolesKey, roles)
-      msg.send prettyArrayString(roles)
-    else
-      msg.send "Not found"
+
+    newRoles = removeObjects(roles, rolesToRemove)
+    robot.brain.set(rolesKey, newRoles)
+    msg.send prettyArrayString(newRoles)
 
   robot.respond /roles set (.*)/i, (msg) ->
     roles = parseCommaSeparatedString(msg.match[1])
@@ -105,16 +102,13 @@ module.exports = (robot) ->
     msg.send prettyArrayString(people)
 
   robot.respond /roles people rm (.*)/i, (msg) ->
-    personToRemove = msg.match[1]
+    peopleToRemove = parseCommaSeparatedString(msg.match[1])
     peopleKey = peopleKey(msg.envelope.room)
     people = robot.brain.get(peopleKey)
-    index = people.indexOf personToRemove
-    if index > -1
-      people.splice(index, 1)
-      robot.brain.set(peopleKey, people)
-      msg.send prettyArrayString(people)
-    else
-      msg.send "Not found"
+
+    newPeople = removeObjects(people, peopleToRemove)
+    robot.brain.set(peopleKey, newPeople)
+    msg.send prettyArrayString(newPeople)
   
   robot.respond /roles people set (.*)/i, (msg) ->
     people = parseCommaSeparatedString(msg.match[1])
@@ -130,3 +124,7 @@ module.exports = (robot) ->
 
   parseCommaSeparatedString = (string) ->
     string.split(/\s*,\s*/)
+
+  removeObjects(source, itemsToRemove) ->
+    _.reject(source, (item) ->
+      itemsToRemove.indexOf(item) > -1)
