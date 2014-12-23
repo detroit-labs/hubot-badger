@@ -18,6 +18,10 @@
 #   hubot roles people rm <names>- Remove people
 #   hubot roles people set <people> - Set all people at once
 #   hubot roles shuffle - Randomly assign people to roles
+#   hubot roles android - List the people in android
+#   hubot roles ios - List the people in ios
+#   hubot roles android add <names> - Add people to android
+#   hubot roles ios add <names> - Add people to iOS
 #
 # Notes:
 #
@@ -31,6 +35,12 @@ rolesKey = (room) ->
 
 peopleKey = (room) ->
   "roles-people-#{room}"
+
+androidKey = (room) ->
+  "roles-android-#{room}"
+
+iOSKey = (room) ->
+  "roles-ios-#{room}"
 
 currentRolesKey = (room) ->
   "roles-current-#{room}"
@@ -74,13 +84,25 @@ module.exports = (robot) ->
   robot.respond /roles shuffle/i, (msg) ->
     roles = robot.brain.get rolesKey(msg.envelope.room)
     people = robot.brain.get peopleKey(msg.envelope.room)
+    android = robot.brain.get androidKey(msg.envelope.room)
+    ios = robot.brain.get iOSKey(msg.envelope.room)
 
     if roles.length > people.length
       msg.send "Not enough people to cover all roles"
     else
       newRoles = _.object(roles, _.sample(people, roles.length))
+      for role in newRoles
+        if role == "〽️Android Alchemist"
+          newAlchemist = _.object(role, _.sample(android, 1)
+          newRoles.push newAlchemist
+        else if role == "✨iOS Illusionist"
+          newIllusionist = _.object(role, _.sample(ios, 1)
+          newRoles.push newIllusionist
+
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
+
+# shuffle individual roles
 
   robot.respond /roles people$/i, (msg) ->
     msg.send stringWithKey(peopleKey(msg.envelope.room))
@@ -89,15 +111,42 @@ module.exports = (robot) ->
     key = peopleKey(msg.envelope.room)
     addObjectsToKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
-    
+
   robot.respond /roles people rm (.*)/i, (msg) ->
     key = peopleKey(msg.envelope.room)
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
-  
+
   robot.respond /roles people set (.*)/i, (msg) ->
     key = peopleKey(msg.envelope.room)
     robot.brain.set(key, parseCommaSeparatedString(msg.match[1]))
+    msg.send stringWithKey(key)
+
+  robot.respond /roles android$/i, (msg) ->
+    msg.send stringWithKey(androidKey(msg.envelope.room))
+
+  robot.respond /roles android add (.*)/i, (msg) ->
+    key = androidKey(msg.envelope.room)
+    addObjectsToKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles android rm (.*)/i, (msg) ->
+    key = androidKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles ios$/i, (msg) ->
+    msg.send stringWithKey(iOSKey(msg.envelope.room))
+
+  robot.respond /roles ios add (.*)/i, (msg) ->
+    key = iOSKey(msg.envelope.room)
+    msg.send key
+    addObjectsToKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles ios rm (.*)/i, (msg) ->
+    key = iOSKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
 
   stringWithKey = (key) ->
