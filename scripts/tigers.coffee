@@ -16,7 +16,7 @@
 require 'datejs'
 _ = require 'underscore'
 
-dates = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
+games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/8/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/9/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/10/15'), desc: "at Indians TBD" },
@@ -179,13 +179,13 @@ dates = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('10/3/15'), desc: "at White Sox TBD" },
 { date: Date.parse('10/4/15'), desc: "at White Sox TBD" }]
 
-niceGameString = (game) ->
-  (game.date.getMonth() + 1) + "/" + game.date.getDate() + " " + game.desc
-
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
     now = Date.today().add(-1).days()
     nextWeek = (7).days().fromNow()
-    games = _.filter(dates, (g) -> g.date.isAfter(now) and g.date.isBefore(nextWeek))
-    sortedGames = _.sortBy(games, (g) -> g.date)
-    msg.send _.map(sortedGames, (game) -> niceGameString(game)).join("\n")
+    msg.send _.chain(games)
+      .filter((g) -> g.date.isAfter(now) and g.date.isBefore(nextWeek))
+      .sortBy((g) -> g.date)
+      .map((g) -> (g.date.getMonth() + 1) + "/" + g.date.getDate() + " " + g.desc)
+      .value()
+      .join("\n")
