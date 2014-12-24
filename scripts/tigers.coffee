@@ -179,21 +179,13 @@ dates = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('10/3/15'), desc: "at White Sox TBD" },
 { date: Date.parse('10/4/15'), desc: "at White Sox TBD" }]
 
+niceGameString = (game) ->
+  (game.date.getMonth() + 1) + "/" + game.date.getDate() + " " + game.desc + "\n"
+
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
     now = Date.today().add(-1).days()
-    next_week = (7).days().fromNow()
-
-    games = _.filter(dates, (g) ->
-      g.date.isAfter(now) && g.date.isBefore(next_week))
-
-    sorted = _.sortBy(games, (g) ->
-      g.date)
-
-    message = ""
-    for game, index in games
-      message += ((game.date.getMonth() + 1) + "/" +  game.date.getDate() + " " + game.desc)
-      if index != games.length - 1
-        message += "\n"
-
-    msg.send message
+    nextWeek = (7).days().fromNow()
+    games = _.filter(dates, (g) -> g.date.isAfter(now) && g.date.isBefore(nextWeek))
+    sorted = _.sortBy(games, (g) -> g.date)
+    msg.send _.reduce(sorted, (str, game) -> str + niceGameString(game), "")
