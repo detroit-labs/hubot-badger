@@ -16,7 +16,7 @@
 require 'datejs'
 _ = require 'underscore'
 
-dates = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
+games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/8/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/9/15'), desc: "Twins 1:08p" },
 { date: Date.parse('4/10/15'), desc: "at Indians TBD" },
@@ -182,18 +182,10 @@ dates = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
     now = Date.today().add(-1).days()
-    next_week = (7).days().fromNow()
-
-    games = _.filter(dates, (g) ->
-      g.date.isAfter(now) && g.date.isBefore(next_week))
-
-    sorted = _.sortBy(games, (g) ->
-      g.date)
-
-    message = ""
-    for game, index in games
-      message += ((game.date.getMonth() + 1) + "/" +  game.date.getDate() + " " + game.desc)
-      if index != games.length - 1
-        message += "\n"
-
-    msg.send message
+    nextWeek = (7).days().fromNow()
+    msg.send _.chain(games)
+      .filter((g) -> g.date.isAfter(now) and g.date.isBefore(nextWeek))
+      .sortBy((g) -> g.date)
+      .map((g) -> (g.date.getMonth() + 1) + "/" + g.date.getDate() + " " + g.desc)
+      .value()
+      .join("\n")
