@@ -13,5 +13,6 @@
 #   Claud
 
 module.exports = (robot) ->
-  robot.hear /(nice)/i, (msg) ->
-    msg.send "(nice)"
+  robot.hear /\(nice\)|(\bnice\b)/i, (msg) ->
+    if msg.match[1] is "nice"
+      msg.send "(nice)"
