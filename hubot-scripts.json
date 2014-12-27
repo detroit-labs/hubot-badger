@@ -18,6 +18,5 @@
   "disassemble.coffee",
   "eight-ball.coffee",
   "lmgtfy.coffee",
-  "emoji.coffee",
-  "reload.coffee"
+  "emoji.coffee"
 ]
