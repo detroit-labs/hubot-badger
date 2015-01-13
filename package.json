@@ -30,7 +30,8 @@
     "underscore": "1.6.0",
     "datejs": "1.0.0-beta",
     "nodemailer": ">= 1.0.0",
-    "hubot-cron": ">= 0.1.0"
+    "hubot-cron": ">= 0.1.0",
+    "github": ">= 0.2.3"
   },
   "engines": {
     "node": "0.10.30",
