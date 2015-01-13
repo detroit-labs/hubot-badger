@@ -91,25 +91,13 @@ module.exports = (robot) ->
       msg.send "Not enough people to cover all roles"
     else
       newRoles = _.object(roles, _.sample(people, roles.length))
-      _.omit(newRoles, "🔱  Android Alchemist")
-      _.omit(newRoles, "✨  iOS Illusionist")
-      for role in newRoles
-        # diagnoses: it's not getting into the loop below
-        if role == "🔱  Android Alchemist"
-          console.log("getting an alchemist")
-          newAlchemist = _.object(role, _.sample(android, 1))
-          newRoles.push newAlchemist
-          console.log("got a new alchemist")
-        else if role == "✨  iOS Illusionist"
-          console.log("getting a new illusionist")
-          newIllusionist = _.object(role, _.sample(ios, 1))
-          newRoles.push newIllusionist
-          console.log("got a new illusionist")
+      newRoles = _.omit(newRoles, "🔱  Android Alchemist", "✨  iOS Illusionist")
+      newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
+      newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
 
+      _.extend(newRoles, newAlchemist, newIllusionist)
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
-
-# shuffle individual roles
 
   robot.respond /roles people$/i, (msg) ->
     msg.send stringWithKey(peopleKey(msg.envelope.room))
