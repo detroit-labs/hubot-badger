@@ -42,7 +42,7 @@ module.exports = (robot) ->
     repos = robot.brain.get(reposKey(msg.envelope.room))
     for repo in repos
       github.repos.get user: process.env.GITHUB_ORG, repo: repo, (err, res) ->
-        msg.send "#{res.name}  Open Issues:#{res.open_issues_count} https://github.com/#{process.env.GITHUB_ORG}/#{repo}/issues"
+        msg.send "#{res.name}  Open PRs: #{res.open_issues_count} https://github.com/#{process.env.GITHUB_ORG}/#{res.name}/pulls"
 
   robot.respond /project repos$/i, (msg) ->
     key = reposKey(msg.envelope.room)
