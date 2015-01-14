@@ -93,22 +93,32 @@ module.exports = (robot) ->
     roles = robot.brain.get rolesKey(msg.envelope.room)
     people = robot.brain.get peopleKey(msg.envelope.room)
     android = robot.brain.get androidKey(msg.envelope.room)
+    androidRole = robot.brain.get androidRoleKey(msg.envelope.room)
     ios = robot.brain.get iOSKey(msg.envelope.room)
+    iosRole = robot.brain.get iosRoleKey(msg.envelope.room)
 
     if roles.length > people.length
       msg.send "Not enough people to cover all roles"
     else
       newRoles = _.object(roles, _.sample(people, roles.length))
 
-      if _.contains(newRoles, "🔱  Android Alchemist")
-        newRoles = _.omit(newRoles, "🔱  Android Alchemist")
-        newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
-        _.extend(newRoles, newAlchemist)
+      if androidRole
+        androidAssignment = _.object(androidRole, _.sample(android, androidRole.length))
+        _.extend(newRoles, androidAssignment)
 
-      if _.contains(newRoles, "✨  iOS Illusionist")
-        newRoles = _.omit(newRoles, "✨  iOS Illusionist")
-        newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
-        _.extend(newRoles, newIllusionist)
+      if iosRole
+        iosAssignment = _.object(iosRole, _.sample(ios, iosRole.length))
+        _.extend(newRoles, iosAssignment)
+      #
+      # if _.contains(newRoles, "🔱  Android Alchemist")
+      #   newRoles = _.omit(newRoles, "🔱  Android Alchemist")
+      #   newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
+      #   _.extend(newRoles, newAlchemist)
+      #
+      # if _.contains(newRoles, "✨  iOS Illusionist")
+      #   newRoles = _.omit(newRoles, "✨  iOS Illusionist")
+      #   newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
+      #   _.extend(newRoles, newIllusionist)
 
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
