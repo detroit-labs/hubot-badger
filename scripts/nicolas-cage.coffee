@@ -16,7 +16,7 @@
 
 
 
-cageQuotes = ["That’s funny, my name’s Roger. Two Rogers don’t make a right!",
+quotes = ["That’s funny, my name’s Roger. Two Rogers don’t make a right!",
 			 "Put… the bunny… back… in the box.",
 			 "Well, I’m one of those fortunate people who like my job, sir. Got my first chemistry set when I was seven, blew my eyebrows off, we never saw the cat again, been into it ever since.",
 			 "Sorry boss, but there’s only two men I trust. One of them’s me. The other’s not you.",
@@ -37,6 +37,7 @@ cageQuotes = ["That’s funny, my name’s Roger. Two Rogers don’t make a righ
 
 module.exports = (robot) ->
 	robot.hear /nicolas cage/i, (msg) ->
-	msg.send msg.random cageQuotes
+	msg.send msg.random quotes
+
 
 	
