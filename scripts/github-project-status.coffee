@@ -2,7 +2,7 @@
 #   GitHub Project Status
 #
 # Dependencies:
-#   underscore, github
+#   underscore, github, promise
 #
 # Configuration:
 #   GITHUB_API_KEY
@@ -22,6 +22,7 @@
 _ = require 'underscore'
 githubAPI = require 'github'
 github = new githubAPI(version: "3.0.0")
+Promise = require 'promise'
 
 github.authenticate(
   type: "oauth",
@@ -37,12 +38,31 @@ prettyArrayString = (array) ->
 reposKey = (room) ->
   "github-repos-#{room}"
 
+fetchGithubData = (repo) ->
+  new Promise (fulfill, reject) ->
+    user = process.env.GITHUB_ORG
+    github.repos.get user: user, repo: repo, (repoError, repoResponse) ->
+      if !repoError
+        github.pullRequests.getAll user:user, repo: repo, status: "open", (prError, prResponse) ->
+          if !prError
+            pullRequests = prResponse.length
+            issues = repoResponse.open_issues_count - pullRequests
+            fulfill("#{repo} Open Pull Requests: #{pullRequests} Open Issues: #{issues} - https://github.com/#{user}/#{repo}")
+          else
+            reject(prError)
+      else
+        reject(repoError)
+
+fetchRepos = (repos) ->
+  Promise.all(repos.map(fetchGithubData))
+
 module.exports = (robot) ->
   robot.respond /project status$/i, (msg) ->
     repos = robot.brain.get(reposKey(msg.envelope.room))
-    for repo in repos
-      github.repos.get user: process.env.GITHUB_ORG, repo: repo, (err, res) ->
-        msg.send "#{res.name}  Open PRs: #{res.open_issues_count} https://github.com/#{process.env.GITHUB_ORG}/#{res.name}/pulls"
+    fetchRepos(repos).done (results) ->
+      msg.send results.join "\n"
+      (err) ->
+        msg.send err
 
   robot.respond /project repos$/i, (msg) ->
     key = reposKey(msg.envelope.room)

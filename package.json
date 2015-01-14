@@ -31,7 +31,8 @@
     "datejs": "1.0.0-beta",
     "nodemailer": ">= 1.0.0",
     "hubot-cron": ">= 0.1.0",
-    "github": ">= 0.2.3"
+    "github": ">= 0.2.3",
+    "promise": "6.1.0"
   },
   "engines": {
     "node": "0.10.30",
