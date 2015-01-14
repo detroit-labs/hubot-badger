@@ -23,7 +23,13 @@
 #   hubot roles android rm <names> - Remove people from android
 #   hubot roles ios - List the people in ios
 #   hubot roles ios add <names> - Add people to iOS
-#   hubot roles ios rm <names> - Removie people from iOS
+#   hubot roles ios rm <names> - Remove people from iOS
+#   hubot roles androidRole - List the android roles
+#   hubot roles androidRole add <names> - Add roles to android roles
+#   hubot roles androidRole rm <names> - Remove roles from android roles
+#   hubot roles iosRole - List ios roles
+#   hubot roles iosRole add <names> - Add roles to iOS
+#   hubot roles iosRole rm <names> - Remove roles from iOS  
 #
 # Notes:
 #
@@ -109,16 +115,6 @@ module.exports = (robot) ->
       if iosRole
         iosAssignment = _.object(iosRole, _.sample(ios, iosRole.length))
         _.extend(newRoles, iosAssignment)
-      #
-      # if _.contains(newRoles, "🔱  Android Alchemist")
-      #   newRoles = _.omit(newRoles, "🔱  Android Alchemist")
-      #   newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
-      #   _.extend(newRoles, newAlchemist)
-      #
-      # if _.contains(newRoles, "✨  iOS Illusionist")
-      #   newRoles = _.omit(newRoles, "✨  iOS Illusionist")
-      #   newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
-      #   _.extend(newRoles, newIllusionist)
 
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
