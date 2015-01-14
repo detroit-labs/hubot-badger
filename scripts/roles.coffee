@@ -47,6 +47,12 @@ iOSKey = (room) ->
 currentRolesKey = (room) ->
   "roles-current-#{room}"
 
+androidRoleKey = (room) ->
+  "roles-androidRole-#{room}"
+
+iosRoleKey = (room) ->
+  "roles-iosRole-#{room}"
+
 prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
 
@@ -148,6 +154,33 @@ module.exports = (robot) ->
 
   robot.respond /roles ios rm (.*)/i, (msg) ->
     key = iOSKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles iosRole$/i, (msg) ->
+    msg.send stringWithKey(iosRoleKey(msg.envelope.room))
+
+  robot.respond /roles iosRole add (.*)/i, (msg) ->
+    console.log("this works")
+    key = iosRoleKey(msg.envelope.room)
+    addObjectsToKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles iosRole rm (.*)/i, (msg) ->
+    key = iosRoleKey(msg.envelope.room)
+    removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles androidRole$/i, (msg) ->
+    msg.send stringWithKey(androidRoleKey(msg.envelope.room))
+
+  robot.respond /roles androidRole add(.*)/i, (msg) ->
+    key = androidRoleKey(msg.envelope.room)
+    addObjectsToKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles androidRole rm (.*)/i, (msg) ->
+    key = androidRoleKey(msg.envelope.room)
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
 
