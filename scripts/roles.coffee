@@ -19,9 +19,11 @@
 #   hubot roles people set <people> - Set all people at once
 #   hubot roles shuffle - Randomly assign people to roles
 #   hubot roles android - List the people in android
-#   hubot roles ios - List the people in ios
 #   hubot roles android add <names> - Add people to android
+#   hubot roles android rm <names> - Remove people from android
+#   hubot roles ios - List the people in ios
 #   hubot roles ios add <names> - Add people to iOS
+#   hubot roles ios rm <names> - Removie people from iOS
 #
 # Notes:
 #
@@ -91,11 +93,17 @@ module.exports = (robot) ->
       msg.send "Not enough people to cover all roles"
     else
       newRoles = _.object(roles, _.sample(people, roles.length))
-      newRoles = _.omit(newRoles, "🔱  Android Alchemist", "✨  iOS Illusionist")
-      newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
-      newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
 
-      _.extend(newRoles, newAlchemist, newIllusionist)
+      if _.contains(newRoles, "🔱  Android Alchemist")
+        newRoles = _.omit(newRoles, "🔱  Android Alchemist")
+        newAlchemist = _.object(["🔱  Android Alchemist"], _.sample(android, 1))
+        _.extend(newRoles, newAlchemist)
+
+      if _.contains(newRoles, "✨  iOS Illusionist")
+        newRoles = _.omit(newRoles, "✨  iOS Illusionist")
+        newIllusionist = _.object(["✨  iOS Illusionist"], _.sample(ios, 1))
+        _.extend(newRoles, newIllusionist)
+
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
       msg.send prettyObjectString(newRoles)
 
