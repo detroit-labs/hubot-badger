@@ -33,13 +33,14 @@ quotes = [
 			"After the Cold War, the AK-47 became Russia’s biggest export. After that came vodka, caviar, and suicidal novelists.",
 			"What did I do? You fuck with the bull, you get the horns. That’s what I did.",
 			"It’s like we’re on two different channels now. I’m CNN and she’s the Home Shopping Network.",
-			"People don’t throw things at me any more. Maybe because I carry a bow around.",
+			"People don’t throw things at me any more. Maybe because I carry a bow around."
 		]
 
 module.exports = (robot) ->
 
-  robot.hear /nicolas cage/i, (msg) ->
-	msg.send msg.random quotes
+	robot.hear /nicolas cage/i, (msg) ->
+		
+		msg.send msg.random quotes
 
 
 	
