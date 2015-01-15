@@ -1,7 +1,20 @@
-# Returns an Oblique Strategy 
-# 
-# hubot oblique
+# Description:
+#   Oblique Strategy
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
+# Commands:
+#   hubot oblique - Returns an Oblique Strategy 
+#
+# Notes:
+#
+# Author:
+#   cdpetersen
+
 module.exports = (robot) ->
   robot.respond /oblique/i , (msg) ->
     oblique msg, (url) ->
@@ -9,5 +22,5 @@ module.exports = (robot) ->
 
 oblique = (msg, cb) ->
   msg.http('http://stoney.sb.org/eno/oblique.html').get() (err, res, body) ->
-    response = body.match(/<H3>(.*?)<\/H3>/);
+    response = body.match(/<H3>(.*?)<\/H3>/)
     cb response?[1] || "The oracle is silent"
