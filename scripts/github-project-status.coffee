@@ -24,10 +24,11 @@ githubAPI = require 'github'
 github = new githubAPI(version: "3.0.0")
 Promise = require 'promise'
 
-github.authenticate(
-  type: "oauth",
-  token: process.env.GITHUB_API_KEY
-)
+if process.env.GITHUB_API_KEY
+  github.authenticate(
+    type: "oauth",
+    token: process.env.GITHUB_API_KEY
+  )
 
 parseCommaSeparatedString = (string) ->
   string.split(/\s*,\s*/)
