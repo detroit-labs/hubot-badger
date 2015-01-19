@@ -13,6 +13,7 @@
 #   hubot project repos - list repos of the project
 #   hubot project repos add <repo(s)> - add repos to the project
 #   hubot project repos remove <repo(s)> - remove repos from the project
+#   hubot project reset - nuke the data for this room
 #
 # Notes:
 #
@@ -78,6 +79,11 @@ module.exports = (robot) ->
     key = reposKey(msg.envelope.room)
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
+
+  robot.respond /project reset/i, (msg) ->
+    key = reposKey(msg.envelope.room)
+    robot.brain.set key, null
+    msg.send "Done."
 
   stringWithKey = (key) ->
     objects = robot.brain.get(key)
