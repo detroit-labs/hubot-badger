@@ -14,4 +14,4 @@
 
 module.exports = (robot) ->
   robot.hear /Matt Chowning/i, (msg) ->
-    msg.send "\"Matt Chowning\""
+    msg.send "Did you mean Matt Tyndall?"
