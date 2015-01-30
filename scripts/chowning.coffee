@@ -13,7 +13,8 @@
 #   nwest
 
 suggestions = [
-  "Did you mean Matt Tyndall?"
+  "Did you mean Matt Tyndall?",
+  "Did you mean Matt Lauer?"
 ]
 
 module.exports = (robot) ->
