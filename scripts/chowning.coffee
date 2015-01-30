@@ -13,9 +13,7 @@
 #   nwest
 
 suggestions = [
-  "Did you mean Matt Tyndall?",
-  "Maybe you meant Matt Lauer.",
-  "Hypothetically, of course."
+  "Did you mean Matt Tyndall?"
 ]
 
 module.exports = (robot) ->
