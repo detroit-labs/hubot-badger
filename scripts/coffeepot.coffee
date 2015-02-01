@@ -14,6 +14,7 @@
 #
 
 moment = require("moment")
+util = require("util")
 
 module.exports = (robot) ->
 
@@ -29,8 +30,24 @@ module.exports = (robot) ->
       
       
   robot.respond /coffeepot/i, (msg) ->
+    burner_count = robot.brain.get("coffeepot-burner-count")
+    status = switch burner_count
+      when 0 then "is off"
+      when 1 then "has one burner on"
+      when 2, 3 then "has #{burner_count} burners on"
+
     timestamp = moment(robot.brain.get("coffeepot-finish-timestamp"))
-    msg.send "msg: (coffee) Coffee was last brewed #{timestamp.fromNow()}."
+    msg.send "(coffee)Coffee was last brewed #{timestamp.fromNow()} and the coffeepot #{status}."
+ 
+      
+  robot.router.post "/coffeepot/status", (req, res) ->
+    if req.header("X-COFFEEPOT-KEY") == process.env.HUBOT_COFFEEPOT_KEY
+      value = parseInt(req.body.burner_count)
+      if(value != null)
+        robot.brain.set("coffeepot-burner-count", value)
+      res.end "OK"
+    else
+      res.end "Nope."
       
       
 	  
