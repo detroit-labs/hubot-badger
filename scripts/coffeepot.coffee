@@ -20,8 +20,10 @@ module.exports = (robot) ->
 
   robot.router.post "/coffeepot/finish", (req, res) ->
     if req.header("X-COFFEEPOT-KEY") == process.env.HUBOT_COFFEEPOT_KEY
-      robot.messageRoom room, "(coffee) Coffee is ready! (coffee)"
-      robot.brain.set("coffeepot-finish-timestamp", moment())
+      burner_count = robot.brain.get("coffeepot-burner-count")
+      if burner_count > 0 
+        robot.messageRoom room, "(coffee) Coffee is ready! (coffee)"
+        robot.brain.set("coffeepot-finish-timestamp", moment())
       res.end "OK"
     else
       res.end "Nope."
@@ -43,6 +45,7 @@ module.exports = (robot) ->
       value = parseInt(req.body.burner_count)
       if(value != null)
         robot.brain.set("coffeepot-burner-count", value)
+        robot.logger.debug "coffeepot-burner-count:#{value}"
       res.end "OK"
     else
       res.end "Nope."
