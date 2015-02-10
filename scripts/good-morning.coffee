@@ -27,7 +27,9 @@ ways_to_say_good_morning = [
   "http://media.giphy.com/media/XCVm7xxtEolwc/giphy.gif",
   "http://media.giphy.com/media/11rwQLkZilbRxS/giphy.gif",
   "http://media.giphy.com/media/3OYyAv41yxMnS/giphy.gif",
-  "http://media.giphy.com/media/RqWlJJUuNCkBq/giphy.gif"
+  "http://media.giphy.com/media/RqWlJJUuNCkBq/giphy.gif",
+  "http://media.giphy.com/media/5fBH6zvK9bUXN1HKfbW/giphy.gif",
+  "http://media.giphy.com/media/NLfI3zZLBp56g/giphy.gif"
 ]
 
 module.exports = (robot) ->
