@@ -14,6 +14,6 @@
 
 module.exports = (robot) ->
   robot.hear /\(thank you\)|(\bthank you\b)/i, (msg) ->
-    if msg.match[1] is "thank you"
-		if Math.random() > .8
-      		msg.send "https://s3.amazonaws.com/uploads.hipchat.com/31582/209877/5xpLrqT70xRfInI/dwy0i4evvxsvt1rf6ehi.gif"
+  	if msg.match[1] is "thank you"
+    	if Math.random() > .8
+			msg.send "https://s3.amazonaws.com/uploads.hipchat.com/31582/209877/5xpLrqT70xRfInI/dwy0i4evvxsvt1rf6ehi.gif"
