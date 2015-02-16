@@ -63,10 +63,10 @@ prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
 
 prettyArrayString = (array) ->
-  newArray = _.map(array, chomp)
+  newArray = _.map(array, stripTag)
   newArray.join(", ")
 
-chomp = (string) ->
+stripTag = (string) ->
   if string.charAt(0) == '@'
     string = string.slice(1)
   else
