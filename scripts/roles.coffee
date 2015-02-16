@@ -69,8 +69,7 @@ prettyArrayString = (array) ->
 stripTag = (string) ->
   if string.charAt(0) == '@'
     string = string.slice(1)
-  else
-    string
+  string
 
 parseCommaSeparatedString = (string) ->
   string.split(/\s*,\s*/)
