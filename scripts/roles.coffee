@@ -29,7 +29,7 @@
 #   hubot roles androidRole rm <names> - Remove roles from android roles
 #   hubot roles iosRole - List ios roles
 #   hubot roles iosRole add <names> - Add roles to iOS
-#   hubot roles iosRole rm <names> - Remove roles from iOS  
+#   hubot roles iosRole rm <names> - Remove roles from iOS
 #
 # Notes:
 #
@@ -63,7 +63,14 @@ prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
 
 prettyArrayString = (array) ->
-  array.join(", ")
+  newArray = _.map(array, chomp)
+  newArray.join(", ")
+
+chomp = (string) ->
+  if string.charAt(0) == '@'
+    string = string.slice(1)
+  else
+    string
 
 parseCommaSeparatedString = (string) ->
   string.split(/\s*,\s*/)
