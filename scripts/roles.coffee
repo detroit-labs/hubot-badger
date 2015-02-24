@@ -59,8 +59,13 @@ androidRoleKey = (room) ->
 iosRoleKey = (room) ->
   "roles-iosRole-#{room}"
 
-prettyObjectString = (object) ->
+notifyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
+
+quietObjectString = (object) ->
+  values = _.map(_.values(object), stripTag)
+  cleanedObject = _.object(_.keys(object), values)
+  _.map(cleanedObject, (key, value) -> "#{value}: #{key}").join("\n")
 
 prettyArrayString = (array) ->
   newArray = _.map(array, stripTag)
@@ -81,7 +86,7 @@ removeObjects = (source, itemsToRemove) ->
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
     currentRoles = robot.brain.get(currentRolesKey(msg.envelope.room))
-    msg.send prettyObjectString(currentRoles)
+    msg.send quietObjectString(currentRoles)
 
   robot.respond /roles list/i, (msg) ->
     msg.send stringWithKey(rolesKey(msg.envelope.room))
@@ -123,7 +128,7 @@ module.exports = (robot) ->
         _.extend(newRoles, iosAssignment)
 
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
-      msg.send prettyObjectString(newRoles)
+      msg.send notifyObjectString(newRoles)
 
   robot.respond /roles people$/i, (msg) ->
     msg.send stringWithKey(peopleKey(msg.envelope.room))
