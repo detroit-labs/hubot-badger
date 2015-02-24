@@ -59,13 +59,13 @@ androidRoleKey = (room) ->
 iosRoleKey = (room) ->
   "roles-iosRole-#{room}"
 
-notifyObjectString = (object) ->
+prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
 
 quietObjectString = (object) ->
   values = _.map(_.values(object), stripTag)
   cleanedObject = _.object(_.keys(object), values)
-  _.map(cleanedObject, (key, value) -> "#{value}: #{key}").join("\n")
+  prettyObjectString(cleanedObject)
 
 prettyArrayString = (array) ->
   newArray = _.map(array, stripTag)
@@ -128,7 +128,7 @@ module.exports = (robot) ->
         _.extend(newRoles, iosAssignment)
 
       robot.brain.set(currentRolesKey(msg.envelope.room), newRoles)
-      msg.send notifyObjectString(newRoles)
+      msg.send prettyObjectString(newRoles)
 
   robot.respond /roles people$/i, (msg) ->
     msg.send stringWithKey(peopleKey(msg.envelope.room))
