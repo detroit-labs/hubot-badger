@@ -14,10 +14,6 @@
 #   nwest
 
 ways_to_say_good_morning = [
-  "Rise and shine!",
-  "Good Morning",
-  "Guten Morgen",
-  "Buenos Dias",
   "http://media1.giphy.com/media/13E3GEE2zxlhhm/giphy.gif",
   "http://media3.giphy.com/media/frc5xfWMX0Vig/giphy.gif",
   "http://media.giphy.com/media/gBxL0G0DqZd84/giphy.gif",
@@ -29,7 +25,9 @@ ways_to_say_good_morning = [
   "http://media.giphy.com/media/3OYyAv41yxMnS/giphy.gif",
   "http://media.giphy.com/media/RqWlJJUuNCkBq/giphy.gif",
   "http://media.giphy.com/media/5fBH6zvK9bUXN1HKfbW/giphy.gif",
-  "http://media.giphy.com/media/NLfI3zZLBp56g/giphy.gif"
+  "http://media.giphy.com/media/NLfI3zZLBp56g/giphy.gif",
+  "http://www.blogcdn.com/www.pawnation.com/media/2013/07/good-morning---imgur-1.gif",
+  "http://s3-ec.buzzfed.com/static/2013-10/enhanced/webdr06/1/12/anigif_enhanced-buzz-18471-1380645591-3.gif"
 ]
 
 module.exports = (robot) ->
