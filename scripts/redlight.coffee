@@ -8,7 +8,7 @@
 #
 # Commands:
 #
-#   .redlight - toggles the state of the redlight
+# hubot redlight - toggles the state of the redlight
 #
 
 topic = "toggle/red_alert"
