@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot red panda - show a (redpanda)
+#   hubot redpanda - show a (redpanda)
 #
 # Author:
 #   nwest
