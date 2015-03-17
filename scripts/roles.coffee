@@ -77,7 +77,8 @@ stripTag = (string) ->
   string
 
 parseCommaSeparatedString = (string) ->
-  string.split(/\s*,\s*/)
+  _.map(string.split(/\s*,\s*/), (s) ->
+    s.trim())
 
 removeObjects = (source, itemsToRemove) ->
   _.reject(source, (item) ->
