@@ -89,8 +89,6 @@ parseCommaSeparatedString = (string) ->
 removeObjects = (source, itemsToRemove) ->
   _.reject(source, (item) ->
     itemsToRemove.indexOf(item) > -1)
-    
-typeIsArray = Array.isArray || ( value ) -> return {}.toString.call( value ) is '[object Array]'
 
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
@@ -226,7 +224,7 @@ module.exports = (robot) ->
     objects = robot.brain.get(key)
     if !objects or _.isEmpty(objects)
       "None"
-    else if typeIsArray objects
+    else if Array.isArray objects
       prettyArrayString(objects)
     else
       objects
