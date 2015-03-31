@@ -58,6 +58,9 @@ androidRoleKey = (room) ->
 
 iosRoleKey = (room) ->
   "roles-iosRole-#{room}"
+  
+legendKey = ( msg ) ->
+  "roles-legend-#{msg.envelope.room}"
 
 prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
@@ -86,6 +89,10 @@ removeObjects = (source, itemsToRemove) ->
 
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
+    legendUrl = msg.robot.brain.get(legendKey(msg))
+    if legendUrl
+      msg.send "roles legend: {legendUrl}"
+    
     currentRoles = robot.brain.get(currentRolesKey(msg.envelope.room))
     msg.send quietObjectString(currentRoles)
 
@@ -201,6 +208,16 @@ module.exports = (robot) ->
     key = androidRoleKey(msg.envelope.room)
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
+    
+  robot.respond /roles legend set ([^/s]*)$/i, (msg) ->
+    legendUrl = msg.match[1]
+    roomKey = legendKey(msg.envelope.room)
+    msg.robot.brain.set(roomKey, legendUrl)
+    msg.send stringWithKey(roomKey)
+   
+  robot.respond /roles legend$/i, (msg) ->
+    roomKey = legendKey(msg.envelope.room)
+    msg.send stringWithKey(roomKey)
 
   stringWithKey = (key) ->
     objects = robot.brain.get(key)
