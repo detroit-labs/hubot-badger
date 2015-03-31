@@ -30,6 +30,8 @@
 #   hubot roles iosRole - List ios roles
 #   hubot roles iosRole add <names> - Add roles to iOS
 #   hubot roles iosRole rm <names> - Remove roles from iOS
+#   hubot roles legend set <url> - sets the legend for the room
+#   hubot roles legend - displays the legend
 #
 # Notes:
 #
