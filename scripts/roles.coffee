@@ -89,12 +89,14 @@ parseCommaSeparatedString = (string) ->
 removeObjects = (source, itemsToRemove) ->
   _.reject(source, (item) ->
     itemsToRemove.indexOf(item) > -1)
+    
+typeIsArray = Array.isArray || ( value ) -> return {}.toString.call( value ) is '[object Array]'
 
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
     legendUrl = msg.robot.brain.get(legendKey(msg))
     if legendUrl
-      msg.send "roles legend: {legendUrl}"
+      msg.send "legend: #{legendUrl}"
     
     currentRoles = robot.brain.get(currentRolesKey(msg))
     msg.send quietObjectString(currentRoles)
@@ -212,7 +214,7 @@ module.exports = (robot) ->
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
     
-  robot.respond /roles legend set ([^/s]*)$/i, (msg) ->
+  robot.respond /roles legend set ([^\s]*)$/i, (msg) ->
     key = legendKey(msg)
     msg.robot.brain.set(key, msg.match[1])
     msg.send stringWithKey(key)
@@ -224,8 +226,10 @@ module.exports = (robot) ->
     objects = robot.brain.get(key)
     if !objects or _.isEmpty(objects)
       "None"
-    else
+    else if typeIsArray objects
       prettyArrayString(objects)
+    else
+      objects
 
   addObjectsToKey = (objects, key) ->
     existingObjects = robot.brain.get(key)
