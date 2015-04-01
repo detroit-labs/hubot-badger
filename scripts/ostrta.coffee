@@ -16,28 +16,14 @@
 # Author:
 #   maschall
 
-global=@
+_ = require 'underscore'
 
-brainKey = (topic, key) ->
-  "ostrta-#{topic}-#{key.replace(/\s/g, '_')}"
+commandMap =
+  listenFor: "hear"
+  respondTo: "respond"
 
-@listenForKeys = () ->
-  brainKey("listenFor", "")
-
-@listenForKey = (key) ->
-  brainKey("listenFor", key)
-  
-@listenForPercentKey = (key) ->
-  brainKey("listenPercent", key)
-
-@respondToKeys = () ->
-  brainKey("respondTo", "")  
-
-@respondToKey = (key) ->
-  brainKey("respondTo", key)
-  
-@respondToPercentKey = (key) ->
-  brainKey("respondPercent", key)
+brainKey = (command, key = "", topic = "") ->
+  "ostrta-#{command}#{topic}-#{key.replace(/\s/g, '_')}"
 
 add = (robot, key, value) ->
   objects = fetch(robot, key)
@@ -55,49 +41,45 @@ fetch = (robot, key) ->
 percentFromString = (percentString) ->
   parseInt(percentString, 10)
   
-tellRobotWhatToDo = (robot, method, command, key) ->
-  robot[method](new RegExp("(#{key})", 'i'), (msg) ->
-    key = msg.match[1]
-    response = fetch(robot, global["#{command}Key"](key))
+tellRobotWhatToDo = (robot, command, key) ->
+  robot[commandMap[command]](new RegExp("(#{key}(\\s|$))", 'i'), (msg) ->
+    response = fetch(robot, brainKey(command, key))
     if response
-      percent = fetch(robot, global["#{command}PercentKey"](key))
-      if Math.random() < (percent / 100.0)
+      percent = fetch(robot, brainKey(command, key, "Percent"))
+      if Math.random() <= (percent / 100.0)
         msg.send response
   )
   
-@respondTo = (robot, key) ->
-  tellRobotWhatToDo robot, "respond", "respondTo", key
-        
-@listenFor = (robot, key) ->
-  tellRobotWhatToDo robot, "hear", "listenFor", key
-  
 loadAllCommands = ( robot, command ) ->
-  keys = fetch( robot, global["#{command}Keys"]() )
+  keys = fetch( robot, brainKey(command, key, "Keys") )
   if keys
     for key in keys
-      global["#{command}"]( robot, key )
+      tellRobotWhatToDo( robot, command, key )
   
-module.exports = (robot) ->  
-  loadAllCommands( robot, "listenFor")
-  loadAllCommands( robot, "respondTo")
+module.exports = (robot) ->
+  commands = _.keys(commandMap)
+  for command in commands
+    loadAllCommands( robot, command )
 
-  robot.respond /(listenFor|respondTo) ("[^"]+"|[^\s]+) ([\d]+%\s)?(.+)$/, (msg) ->
+  commandsRegex = commands.join('|')
+  robot.respond new RegExp("(#{commandsRegex}) (\"[^\"]+\"|[^\\s]+) ([\\d]+%\\s)?(.+)$"), (msg) ->
     command = msg.match[1]
     key = msg.match[2].replace(/"/g, "")
-    if key in [ 'listenFor', 'respondTo' ]
+    if key in commands
       msg.send "Dont be a jerk"
       return
     
     percent =  msg.match[3] || "100% "
     response = msg.match[4]
     
-    commandExists = fetch(robot, global["#{command}Key"](key))
+    commandKey = brainKey(command, key)
+    commandExists = fetch(robot, commandKey)
     
-    remember(robot, global["#{command}Key"](key), response)
-    
-    remember(robot, global["#{command}PercentKey"](key), percentFromString(percent))
+    add(robot, brainKey(command, key, "Keys"), key)
+    remember(robot, commandKey, response)
+    remember(robot, brainKey(command, key, "Percent"), percentFromString(percent))
     
     if !commandExists
-      global["#{command}"](robot, key)
+      tellRobotWhatToDo( robot, command, key )
     
     msg.send "#{command} #{key} will return #{response}"
