@@ -62,7 +62,12 @@ module.exports = (robot) ->
     loadAllCommands( robot, command )
 
   commandsRegex = commands.join('|')
-  robot.respond new RegExp("(#{commandsRegex}) (\"[^\"]+\"|[^\\s]+) ([\\d]+%\\s)?(.+)$"), (msg) ->
+  quotedKeyRegex = "\"[^\"]+\""
+  singleWordKeyRegex = "[^\\s]+"
+  optionalPercentRegex = "[\\d]+%\\s"
+  responseRegex = ".+"
+  
+  robot.respond new RegExp("(#{commandsRegex}) (#{quotedKeyRegex}|#{singleWordKeyRegex}) (#{optionalPercentRegex})?(#{responseRegex})$"), (msg) ->
     command = msg.match[1]
     key = msg.match[2].replace(/"/g, "")
     if key in commands
