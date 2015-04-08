@@ -32,8 +32,12 @@
 #   hubot roles iosRole rm <names> - Remove roles from iOS
 #   hubot roles legend set <url> - sets the legend for the room
 #   hubot roles legend - displays the legend
+#   hubot roles strategy set <strategy> - sets the shuffle algorithm
+#   hubot roles strategy - returns the shuffle algorith
+#   hubot roles strategies - lists the shuffle algorithms
 #
 # Notes:
+#   defaults to random shuffle
 #
 # Author:
 #   nwest
@@ -41,7 +45,7 @@
 _ = require 'underscore'
 
 getRoom = (msg) ->
-  msg.envelope.room
+  msg.envelope.room or msg.envelope.user.id #just in case someone wants to play in their own private world
 
 rolesKey = (msg) ->
   "roles-#{getRoom(msg)}"
@@ -66,6 +70,9 @@ iosRoleKey = (msg) ->
   
 legendKey = (msg) ->
   "roles-legend-#{getRoom(msg)}"
+  
+strategyKey = (msg) ->
+  "roles-strategy-#{getRoom(msg)}"
 
 prettyObjectString = (object) ->
   _.map(object, (key, value) -> "#{value}: #{key}").join("\n")
@@ -91,6 +98,67 @@ parseCommaSeparatedString = (string) ->
 removeObjects = (source, itemsToRemove) ->
   _.reject(source, (item) ->
     itemsToRemove.indexOf(item) > -1)
+
+strategyForRoom = (msg) ->
+  strategy = msg.robot.brain.get strategyKey(msg)
+  if !strategy || !(strategy in strategies)
+    strategy = strategies[0]
+  strategy
+
+strategies = ["random", "roundRobin"]    
+global = @
+
+@random = (msg) ->
+  brain = msg.robot.brain
+  roles = brain.get rolesKey(msg)
+  people = brain.get peopleKey(msg)
+  android = brain.get androidKey(msg)
+  androidRole = brain.get androidRoleKey(msg)
+  ios = brain.get iOSKey(msg)
+  iosRole = brain.get iosRoleKey(msg)
+
+  newRoles = _.object(roles, _.sample(people, roles.length))
+
+  if androidRole
+    androidAssignment = _.object(androidRole, _.sample(android, androidRole.length))
+    _.extend(newRoles, androidAssignment)
+
+  if iosRole
+    iosAssignment = _.object(iosRole, _.sample(ios, iosRole.length))
+    _.extend(newRoles, iosAssignment)
+
+  brain.set(currentRolesKey(msg), newRoles)
+  newRoles
+
+nextPerson = (currentPerson, people) ->
+  index = people.indexOf(currentPerson)
+  people[(index+1) % people.length]
+
+@roundRobin = (msg) ->
+  brain = msg.robot.brain
+  roles = brain.get rolesKey(msg)
+  people = brain.get peopleKey(msg)
+  android = brain.get androidKey(msg)
+  androidRole = brain.get androidRoleKey(msg)
+  ios = brain.get iOSKey(msg)
+  iosRole = brain.get iosRoleKey(msg)
+  
+  currentRoles = brain.get(currentRolesKey(msg))
+  if !currentRoles # we just started let's make it random
+    newRoles = @random(msg)
+  else
+    newRoles = currentRoles
+    for role in _.keys(newRoles)
+      roster = people
+      if androidRole && role in androidRole
+        roster = android
+      else if iosRole && role in iosRole
+        roster = ios
+        
+      newRoles[role] = nextPerson(newRoles[role], roster)
+  
+  brain.set(currentRolesKey(msg), newRoles)
+  newRoles
 
 module.exports = (robot) ->
   robot.respond /roles$/i, (msg) ->
@@ -120,27 +188,13 @@ module.exports = (robot) ->
     msg.send stringWithKey(key)
 
   robot.respond /roles shuffle/i, (msg) ->
-    roles = robot.brain.get rolesKey(msg)
-    people = robot.brain.get peopleKey(msg)
-    android = robot.brain.get androidKey(msg)
-    androidRole = robot.brain.get androidRoleKey(msg)
-    ios = robot.brain.get iOSKey(msg)
-    iosRole = robot.brain.get iosRoleKey(msg)
-
+    roles = msg.robot.brain.get rolesKey(msg)
+    people = msg.robot.brain.get peopleKey(msg)
+    
     if roles.length > people.length
       msg.send "Not enough people to cover all roles"
     else
-      newRoles = _.object(roles, _.sample(people, roles.length))
-
-      if androidRole
-        androidAssignment = _.object(androidRole, _.sample(android, androidRole.length))
-        _.extend(newRoles, androidAssignment)
-
-      if iosRole
-        iosAssignment = _.object(iosRole, _.sample(ios, iosRole.length))
-        _.extend(newRoles, iosAssignment)
-
-      robot.brain.set(currentRolesKey(msg), newRoles)
+      newRoles = global[strategyForRoom(msg)](msg)
       msg.send prettyObjectString(newRoles)
 
   robot.respond /roles people$/i, (msg) ->
@@ -214,13 +268,29 @@ module.exports = (robot) ->
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
     
-  robot.respond /roles legend set ([^\s]*)$/i, (msg) ->
+  robot.respond /roles legend set ([^\s]+)$/i, (msg) ->
     key = legendKey(msg)
     msg.robot.brain.set(key, msg.match[1])
     msg.send stringWithKey(key)
    
   robot.respond /roles legend$/i, (msg) ->
     msg.send stringWithKey(legendKey(msg))
+
+  strategiesRegex = strategies.join('|')
+
+  robot.respond new RegExp("roles strategy set (#{strategiesRegex})$", 'i'), (msg) ->
+    strategy = _.find(strategies, (strategy) ->
+      strategy.toLowerCase() == msg.match[1].toLowerCase()
+    )
+    key = strategyKey(msg)
+    msg.robot.brain.set(key, strategy)
+    msg.send stringWithKey(key)
+    
+  robot.respond /roles strategies$/i, (msg) ->
+    msg.send prettyArrayString(strategies)
+  
+  robot.respond /roles strategy$/i, (msg) ->
+    msg.send strategyForRoom(msg)
 
   stringWithKey = (key) ->
     objects = robot.brain.get(key)
