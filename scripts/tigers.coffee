@@ -179,6 +179,20 @@ games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('10/3/15'), desc: "at White Sox TBD" },
 { date: Date.parse('10/4/15'), desc: "at White Sox TBD" }]
 
+daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
+displayDate = (date) ->
+  now = Date.today().clearTime()
+  day = date.getDay()
+  dayOfWeek = daysOfWeek[day]
+  if Date.compare( date, now ) == 0
+    dayOfWeek = "Today"
+  else if day == now.getDay() + 1
+    dayOfWeek = "Tomorrow"
+  else if day <= now.getDay()
+    dayOfWeek = "Next #{dayOfWeek}"
+  "#{dayOfWeek} #{date.getMonth() + 1}/#{date.getDate()}"
+
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
     now = Date.today().add(-1).days()
@@ -186,6 +200,6 @@ module.exports = (robot) ->
     msg.send _.chain(games)
       .filter((g) -> g.date.isAfter(now) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
-      .map((g) -> (g.date.getMonth() + 1) + "/" + g.date.getDate() + " " + g.desc)
+      .map((g) -> "#{displayDate(g.date)} #{g.desc}")
       .value()
       .join("\n")
