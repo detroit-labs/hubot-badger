@@ -181,25 +181,25 @@ games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 
 daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-displayDate = (date) ->
-  now = Date.today().clearTime()
+displayDate = (date, now) ->
   day = date.getDay()
   dayOfWeek = daysOfWeek[day]
   if Date.compare( date, now ) == 0
     dayOfWeek = "Today"
   else if day == now.getDay() + 1
     dayOfWeek = "Tomorrow"
-  else if day <= now.getDay()
-    dayOfWeek = "Next #{dayOfWeek}"
   "#{dayOfWeek} #{date.getMonth() + 1}/#{date.getDate()}"
 
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
-    now = Date.today().add(-1).days()
-    nextWeek = (7).days().fromNow()
+    now = Date.today().clearTime()
+    console.log(now) # i need to see what heroku server responds with
+    #if you use now.add(-1).days() it will alter now as well
+    yesterday = Date.today().add(-1).days() 
+    nextWeek = Date.today().add(7).days()
     msg.send _.chain(games)
-      .filter((g) -> g.date.isAfter(now) and g.date.isBefore(nextWeek))
+      .filter((g) -> g.date.isAfter(yesterday) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
-      .map((g) -> "#{displayDate(g.date)} #{g.desc}")
+      .map((g) -> "#{displayDate(g.date, now)} #{g.desc}")
       .value()
       .join("\n")
