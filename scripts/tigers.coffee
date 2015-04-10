@@ -1,5 +1,5 @@
 # Description:
-#   Returns this week's tiger's schedule
+#   Returns this week's Tigers' schedule
 #
 # Dependencies:
 #   underscore, datejs
