@@ -57,16 +57,20 @@ loadAllCommands = ( robot, command ) ->
       tellRobotWhatToDo( robot, command, key )
   
 module.exports = (robot) ->
-  commands = _.keys(commandMap)
-  for command in commands
-    loadAllCommands( robot, command )
+  loaded = false # loaded is called for first load and set, so only do it once
+  robot.brain.on 'loaded', (data = {}) ->
+    if not loaded
+      loaded = true
+      commands = _.keys(commandMap)
+      for command in commands
+        loadAllCommands( robot, command )
 
+  commands = _.keys(commandMap)
   commandsRegex = commands.join('|')
   quotedKeyRegex = "\"[^\"]+\""
   singleWordKeyRegex = "[^\\s]+"
   optionalPercentRegex = "[\\d]+%\\s"
   responseRegex = ".+"
-  
   robot.respond new RegExp("(#{commandsRegex}) (#{quotedKeyRegex}|#{singleWordKeyRegex}) (#{optionalPercentRegex})?(#{responseRegex})$"), (msg) ->
     command = msg.match[1]
     key = msg.match[2].replace(/"/g, "")
