@@ -17,6 +17,7 @@ client = mqtt.connect('mqtt://broadsidetv.com')
 lightActive = false
 
 module.exports = (robot) ->
-  robot.respond /redlight/i, (msg) ->
+  robot.respond /redlight (.+)/i, (msg) ->
       duration = msg.match[1]
       client.publish topic, duration
+      msg.send "running red light for "+duration+"ms"
