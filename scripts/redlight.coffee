@@ -18,4 +18,5 @@ lightActive = false
 
 module.exports = (robot) ->
   robot.respond /redlight/i, (msg) ->
-      client.publish topic
+      duration = msg.match[1]
+      client.publish topic, duration
