@@ -21,9 +21,11 @@
 #   hubot roles android - List the people in android
 #   hubot roles android add <names> - Add people to android
 #   hubot roles android rm <names> - Remove people from android
+#   hubot roles android set <roles> - Set all android roles at once
 #   hubot roles ios - List the people in ios
 #   hubot roles ios add <names> - Add people to iOS
 #   hubot roles ios rm <names> - Remove people from iOS
+#   hubot roles ios set <roles> - Set all ios roles at once
 #   hubot roles androidRole - List the android roles
 #   hubot roles androidRole add <names> - Add roles to android roles
 #   hubot roles androidRole rm <names> - Remove roles from android roles
@@ -105,7 +107,7 @@ strategyForRoom = (msg) ->
     strategy = strategies[0]
   strategy
 
-strategies = ["random", "roundRobin"]    
+strategies = ["random", "roundRobin"]
 global = @
 
 @random = (msg) ->
@@ -228,6 +230,11 @@ module.exports = (robot) ->
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
     msg.send stringWithKey(key)
 
+  robot.respond /roles android set (.*)/i, (msg) ->
+    key = androidKey(msg)
+    robot.brain.set(key, parseCommaSeparatedString(msg.match[1]))
+    msg.send stringWithKey(key)
+
   robot.respond /roles ios$/i, (msg) ->
     msg.send stringWithKey(iOSKey(msg))
 
@@ -239,6 +246,11 @@ module.exports = (robot) ->
   robot.respond /roles ios rm (.*)/i, (msg) ->
     key = iOSKey(msg)
     removeObjectsFromKey(parseCommaSeparatedString(msg.match[1]), key)
+    msg.send stringWithKey(key)
+
+  robot.respond /roles ios set (.*)/i, (msg) ->
+    key = iOSKey(msg)
+    robot.brain.set(key, parseCommaSeparatedString(msg.match[1]))
     msg.send stringWithKey(key)
 
   robot.respond /roles iosRole$/i, (msg) ->

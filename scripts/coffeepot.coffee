@@ -29,7 +29,7 @@ module.exports = (robot) ->
       res.end "Nope."
       
       
-  robot.respond /coffeepot/i, (msg) ->
+  robot.respond /coffee(pot)?$/i, (msg) ->
     burner_count = robot.brain.get("coffeepot-burner-count")
     status = switch burner_count
       when 0 then " and the coffeepot is off"
