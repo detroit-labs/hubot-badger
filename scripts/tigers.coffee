@@ -197,7 +197,7 @@ module.exports = (robot) ->
     #if you use now.add(-1).days() it will alter now as well
     yesterday = Date.today().add(-1).days() 
     nextWeek = Date.today().add(7).days()
-    msg.send _.chain(games)
+    msg.send "(beisbol) TIME!\n" + _.chain(games)
       .filter((g) -> g.date.isAfter(yesterday) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
       .map((g) -> "#{displayDate(g.date, now)} #{g.desc}")
