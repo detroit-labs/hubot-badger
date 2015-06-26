@@ -14,7 +14,6 @@
 #   nwest
 
 require 'datejs'
-require('time')(Date)
 _ = require 'underscore'
 
 games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
@@ -193,10 +192,11 @@ displayDate = (date, now) ->
 
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
-    tz = "America/Detroit"
-    now = Date.today().clearTime().setTimezone(tz)
-    yesterday = Date.today().add(-1).days().setTimezone(tz)
-    nextWeek = Date.today().add(7).days().setTimezone(tz)
+    now = Date.today().clearTime()
+    console.log(now) # i need to see what heroku server responds with
+    #if you use now.add(-1).days() it will alter now as well
+    yesterday = Date.today().add(-1).days() 
+    nextWeek = Date.today().add(7).days()
     msg.send "(beisbol) TIME!\n" + _.chain(games)
       .filter((g) -> g.date.isAfter(yesterday) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
