@@ -20,5 +20,6 @@
   "lmgtfy.coffee",
   "emoji.coffee",
   "achievement_unlocked.coffee",
-  "fortune.coffee"
+  "fortune.coffee",
+  "bookmark.coffee"
 ]
