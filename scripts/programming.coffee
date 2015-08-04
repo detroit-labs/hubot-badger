@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   None
+#   hubot programming - brings up programming.gif
 #
 # Author:
 #   dpoggi
