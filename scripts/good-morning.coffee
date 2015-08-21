@@ -27,7 +27,7 @@ ways_to_say_good_morning = [
   "http://media.giphy.com/media/5fBH6zvK9bUXN1HKfbW/giphy.gif",
   "http://media.giphy.com/media/NLfI3zZLBp56g/giphy.gif",
   "http://www.blogcdn.com/www.pawnation.com/media/2013/07/good-morning---imgur-1.gif",
-  "http://s3-ec.buzzfed.com/static/2013-10/enhanced/webdr06/1/12/anigif_enhanced-buzz-18471-1380645591-3.gif"
+  "http://s3-ec.buzzfed.com/static/2013-10/enhanced/webdr06/1/12/anigif_enhanced-buzz-18471-1380645591-3.gif",
   "https://40.media.tumblr.com/12baee8ef8f8c868902d10f041558ce9/tumblr_inline_ns3zlhXI7N1rkr342_540.jpg"
 ]
 
