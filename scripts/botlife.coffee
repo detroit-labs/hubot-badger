@@ -25,8 +25,8 @@ snackResponses = [
 ]
 
 snackEmoticons = [
-  "(coin)",
-  "(fruit)",
+  "(cookie)",
+  "(lolwut)",
   "(shawarma)",
   "(bacon)",
   "(oreo)",
