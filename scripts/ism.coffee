@@ -33,7 +33,6 @@ isms = [
 		"We eat our own dog food.",
 		"Simplicity is genius.",
 		"Innovation is rewarded. Execution is worshipped.",
-		"A great idea is just the first step. The real magic is bringing that idea to life with great execution.",
 		"Do the right thing.",
 		"Every second counts.",
 		"Yes before no."
