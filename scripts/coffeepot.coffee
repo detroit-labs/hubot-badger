@@ -35,7 +35,8 @@ module.exports = (robot) ->
     if req.header("X-COFFEEPOT-KEY") == process.env.HUBOT_COFFEEPOT_KEY
       burner_count = robot.brain.get("coffeepot-burner-count")
       if burner_count > 0
-        robot.messageRoom coffee_thoughts[[Math.floor(Math.random() * coffee_thoughts.length)]]
+        coffee_thought = coffee_thoughts[[Math.floor(Math.random() * coffee_thoughts.length)]]
+        robot.messageRoom room, coffee_thought
         robot.brain.set("coffeepot-finish-timestamp", moment())
       res.end "OK"
     else
