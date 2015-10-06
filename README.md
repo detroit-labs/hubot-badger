@@ -8,7 +8,9 @@ This version is designed to be deployed on [Heroku][heroku]. This README was gen
 
 [heroku]: http://www.heroku.com
 
-### Testing Hubot Locally
+### Testing
+
+#### Running Hubot Locally
 
 You can test your hubot by running the following.
 
@@ -31,6 +33,17 @@ Then you can interact with hubot by typing `hubot help`.
     help - Displays all of the help commands that Hubot knows about.
     ...
 
+#### Running Unit Tests
+
+You can run [mocha](https://mochajs.org/) unit tests by running the following.
+
+    % npm test
+
+To create a new test for a script (e.g. `scripts/myscript.coffee`), create a spec file.
+
+    % touch tests/myscript.spec.coffee
+
+Refer to [this helpful guide](https://amussey.github.io/2015/08/11/testing-hubot-scripts.html) as well as other tests in the `tests` directory to learn more about writing unit tests for hubot scripts.
 
 ### Scripting
 
