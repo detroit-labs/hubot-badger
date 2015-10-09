@@ -15,6 +15,7 @@
 
 moment = require("moment")
 
+# coffeelint: disable=max_line_length
 coffee_thoughts = [
   "Coffee is Ready!",
   "(klaw)",
@@ -60,6 +61,7 @@ coffee_thoughts = [
   "Coffee was the first food in the world to be freeze-dried.",
   "Coffee with added cream cools about 20% slower than plain black coffee."
 ]
+# coffeelint: enable=max_line_length
 
 module.exports = (robot) ->
   room = process.env.HUBOT_COFFEEPOT_ANNOUNCE_ROOM
@@ -68,7 +70,8 @@ module.exports = (robot) ->
     if req.header("X-COFFEEPOT-KEY") == process.env.HUBOT_COFFEEPOT_KEY
       burner_count = robot.brain.get("coffeepot-burner-count")
       if burner_count > 0
-        coffee_thought = coffee_thoughts[[Math.floor(Math.random() * coffee_thoughts.length)]]
+        idx = [Math.floor(Math.random() * coffee_thoughts.length)]
+        coffee_thought = coffee_thoughts[idx]
         robot.messageRoom room, "(coffee) (successful) — " + coffee_thought
         robot.brain.set("coffeepot-finish-timestamp", moment())
       res.end "OK"
