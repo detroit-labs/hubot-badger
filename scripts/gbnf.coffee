@@ -23,7 +23,8 @@ default_gbnf_images = [
   "http://i.imgur.com/DK1JfIo.jpg",
   "http://i.imgur.com/XvUJnOa.jpg",
   "http://i.imgur.com/UvKEryk.jpg",
-  "http://i.imgur.com/Zkrvodl.jpg"
+  "http://i.imgur.com/Zkrvodl.jpg",
+  "http://i.imgur.com/zAY3NrR.jpg"
 ]
 
 initBrain  = (robot) ->
