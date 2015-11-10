@@ -9,25 +9,31 @@
 #
 # Commands:
 #   hubot mem <keyword> - prints out saved resource
+#   hubot get <keyword> - prints out saved resource
 #   hubot rem <keyword> <resource> - saves resource to specified keyword
+#   hubot set <keyword> <resource> - saves resource to specified keyword
 #
 # Author:
 #   snibbles
 
-memrem_id = (keyword) ->
-  "memrem_#{keyword}"
+memremId = (keyword) -> "memrem_#{keyword}"
+
+onGet = (msg) ->
+  keyword = msg.match[2]
+  key = memremId keyword
+  value = msg.robot.brain.get key
+  if value
+    msg.send value
+  else
+    msg.send "we does not has #{keyword}"
+
+onSet = (msg) ->
+  keyword = msg.match[2]
+  value = msg.match[3]
+  key = memremId keyword
+  msg.robot.brain.set key, value
+  msg.send "saved #{value} as #{keyword}"
 
 module.exports = (robot) ->
-  robot.respond /mem ([a-zA-Z]*)$/i, (msg) ->
-    keyword = msg.match[1]
-    url = msg.robot.brain.get(memrem_id(keyword))
-    if (url)
-      msg.send url
-    else
-      msg.send "we does not has #{keyword}"
-
-  robot.respond /rem ([a-zA-Z]*) (.*)/i, (msg) ->
-    keyword = msg.match[1]
-    url = msg.match[2]
-    msg.robot.brain.set(memrem_id(keyword), url)
-    msg.send "saved #{url} as #{keyword}"
+  robot.respond /(mem|get) (?!safesearch)([a-zA-Z]*)$/i, onGet
+  robot.respond /(rem|set) (?!safesearch)([a-zA-Z]*) (.*)/i, onSet
