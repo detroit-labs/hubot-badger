@@ -32,7 +32,9 @@ redpandas = [
   "http://telegraf.com.ua/files/2014/05/171.gif",
   "http://4.bp.blogspot.com/-KMEqsKeO1MI/TnApJdkAkKI/AAAAAAAAOsc/2N8XUE76XJ0/s1600/red%2Bpanda%2B1.jpg",
   "http://imgur.com/0B3dbH6.gif",
-  "http://i.dailymail.co.uk/i/pix/2012/10/24/article-2222304-15A7E9E4000005DC-511_964x475.jpg"
+  "http://i.dailymail.co.uk/i/pix/2012/10/24/article-2222304-15A7E9E4000005DC-511_964x475.jpg",
+  "http://bukk.it/pandafives.gif",
+  "http://i.imgur.com/AV83fzb.gifv"
 ]
 
 module.exports = (robot) ->
