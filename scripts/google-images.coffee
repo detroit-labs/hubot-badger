@@ -85,7 +85,7 @@ imageMe = (msg, query, count, cb) ->
       null_check_callback(image, cb)
 
 animateMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'animated'), count, (image) ->
+  googleApi msg, imageQuery(msg, query, 'gif'), count, (image) ->
       null_check_callback(image, cb)
 
 faceMe = (msg, query, count, cb) ->
@@ -99,11 +99,9 @@ null_check_callback = (image, cb) ->
   
 imageQuery = (msg, query, type) ->
   safe_search_off = msg.robot.brain.get(safesearch_lookup_id(msg)) == "off"
-  cb = animated if typeof animated == 'function'
-  cb = faces if typeof faces == 'function'
   q = v: '1.0', rsz: 8, q: query, safe: 'active'
   q.safe = 'off' if safe_search_off is true
-  q.imgtype = type
+  q.imgtype = q.as_filetype = type
   q
   
 googleApi = (msg, q, count, cb) ->
