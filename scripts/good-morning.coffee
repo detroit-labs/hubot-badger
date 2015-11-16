@@ -27,7 +27,8 @@ ways_to_say_good_morning = [
   "http://media.giphy.com/media/5fBH6zvK9bUXN1HKfbW/giphy.gif",
   "http://media.giphy.com/media/NLfI3zZLBp56g/giphy.gif",
   "http://www.blogcdn.com/www.pawnation.com/media/2013/07/good-morning---imgur-1.gif",
-  "http://s3-ec.buzzfed.com/static/2013-10/enhanced/webdr06/1/12/anigif_enhanced-buzz-18471-1380645591-3.gif"
+  "http://s3-ec.buzzfed.com/static/2013-10/enhanced/webdr06/1/12/anigif_enhanced-buzz-18471-1380645591-3.gif",
+  "https://31.media.tumblr.com/4161798ce80b3606a15aab8fc6860115/tumblr_inline_nxu8lxu1d91qzxfm4_500.gif"
 ]
 
 module.exports = (robot) ->
