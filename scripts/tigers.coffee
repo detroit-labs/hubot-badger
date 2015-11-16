@@ -129,55 +129,57 @@ games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('8/7/15'), desc: "Red Sox 7:08p" },
 { date: Date.parse('8/8/15'), desc: "Red Sox 7:08p" },
 { date: Date.parse('8/9/15'), desc: "Red Sox 1:08p" },
-{ date: Date.parse('8/10/15'), desc: "at Royals TBD" },
-{ date: Date.parse('8/11/15'), desc: "at Royals TBD" },
-{ date: Date.parse('8/12/15'), desc: "at Royals TBD" },
-{ date: Date.parse('8/14/15'), desc: "at Astros TBD" },
-{ date: Date.parse('8/15/15'), desc: "at Astros TBD" },
-{ date: Date.parse('8/16/15'), desc: "at Astros TBD" },
+{ date: Date.parse('8/10/15'), desc: "at Royals 8:10p" },
+{ date: Date.parse('8/11/15'), desc: "at Royals 8:10p" },
+{ date: Date.parse('8/12/15'), desc: "at Royals 8:10p" },
+{ date: Date.parse('8/14/15'), desc: "at Astros 8:10p" },
+{ date: Date.parse('8/15/15'), desc: "at Astros 7:10p" },
+{ date: Date.parse('8/16/15'), desc: "at Astros 2:10p" },
 { date: Date.parse('8/18/15'), desc: "at Cubs 8:05p" },
 { date: Date.parse('8/19/15'), desc: "at Cubs 8:05p" },
 { date: Date.parse('8/20/15'), desc: "Rangers 7:08p" },
 { date: Date.parse('8/21/15'), desc: "Rangers 7:08p" },
 { date: Date.parse('8/22/15'), desc: "Rangers 7:08p" },
 { date: Date.parse('8/23/15'), desc: "Rangers 1:08p" },
+{ date: Date.parse('8/24/15'), desc: "at Reds 7:10p" },
 { date: Date.parse('8/25/15'), desc: "Angels 7:08p" },
 { date: Date.parse('8/26/15'), desc: "Angels 7:08p" },
 { date: Date.parse('8/27/15'), desc: "Angels 1:08p" },
 { date: Date.parse('8/28/15'), desc: "at Blue Jays 7:07p" },
 { date: Date.parse('8/29/15'), desc: "at Blue Jays 1:07p" },
 { date: Date.parse('8/30/15'), desc: "at Blue Jays 1:07p" },
-{ date: Date.parse('9/1/15'), desc: "at Royals TBD" },
-{ date: Date.parse('9/2/15'), desc: "at Royals TBD" },
-{ date: Date.parse('9/3/15'), desc: "at Royals TBD" },
+{ date: Date.parse('9/1/15'), desc: "at Royals 8:10p" },
+{ date: Date.parse('9/2/15'), desc: "at Royals 8:10p" },
+{ date: Date.parse('9/3/15'), desc: "at Royals 8:10p" },
 { date: Date.parse('9/4/15'), desc: "Indians 7:08p" },
 { date: Date.parse('9/5/15'), desc: "Indians 7:08p" },
 { date: Date.parse('9/6/15'), desc: "Indians 1:08p" },
 { date: Date.parse('9/7/15'), desc: "Rays 1:08p" },
 { date: Date.parse('9/8/15'), desc: "Rays 7:08p" },
 { date: Date.parse('9/9/15'), desc: "Rays 7:08p" },
-{ date: Date.parse('9/10/15'), desc: "at Indians TBD" },
-{ date: Date.parse('9/11/15'), desc: "at Indians TBD" },
-{ date: Date.parse('9/12/15'), desc: "at Indians TBD" },
-{ date: Date.parse('9/13/15'), desc: "at Indians TBD" },
+{ date: Date.parse('9/10/15'), desc: "at Indians 7:10p" },
+{ date: Date.parse('9/11/15'), desc: "at Indians 7:10p" },
+{ date: Date.parse('9/12/15'), desc: "at Indians 7:10p" },
+{ date: Date.parse('9/13/15'), desc: "at Indians 1:10p" },
 { date: Date.parse('9/14/15'), desc: "at Twins 8:10p" },
 { date: Date.parse('9/15/15'), desc: "at Twins 8:10p" },
 { date: Date.parse('9/16/15'), desc: "at Twins 8:10p" },
 { date: Date.parse('9/18/15'), desc: "Royals 7:08p" },
 { date: Date.parse('9/19/15'), desc: "Royals 7:08p" },
 { date: Date.parse('9/20/15'), desc: "Royals 1:08p" },
+{ date: Date.parse('9/21/15'), desc: "White Sox 1:08p" },
 { date: Date.parse('9/21/15'), desc: "White Sox 7:08p" },
 { date: Date.parse('9/22/15'), desc: "White Sox 7:08p" },
 { date: Date.parse('9/23/15'), desc: "White Sox 1:08p" },
 { date: Date.parse('9/25/15'), desc: "Twins 7:08p" },
 { date: Date.parse('9/26/15'), desc: "Twins 7:08p" },
 { date: Date.parse('9/27/15'), desc: "Twins 1:08p" },
-{ date: Date.parse('9/28/15'), desc: "at Rangers TBD" },
-{ date: Date.parse('9/29/15'), desc: "at Rangers TBD" },
-{ date: Date.parse('9/30/15'), desc: "at Rangers TBD" },
-{ date: Date.parse('10/2/15'), desc: "at White Sox TBD" },
-{ date: Date.parse('10/3/15'), desc: "at White Sox TBD" },
-{ date: Date.parse('10/4/15'), desc: "at White Sox TBD" }]
+{ date: Date.parse('9/28/15'), desc: "at Rangers 8:05p" },
+{ date: Date.parse('9/29/15'), desc: "at Rangers 8:05p" },
+{ date: Date.parse('9/30/15'), desc: "at Rangers 8:05p" },
+{ date: Date.parse('10/2/15'), desc: "at White Sox 8:10p" },
+{ date: Date.parse('10/3/15'), desc: "at White Sox 7:10p" },
+{ date: Date.parse('10/4/15'), desc: "at White Sox 3:10p" }]
 
 daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
@@ -193,11 +195,9 @@ displayDate = (date, now) ->
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
     now = Date.today().clearTime()
-    console.log(now) # i need to see what heroku server responds with
-    #if you use now.add(-1).days() it will alter now as well
-    yesterday = Date.today().add(-1).days() 
+    yesterday = Date.today().add(-1).days()
     nextWeek = Date.today().add(7).days()
-    msg.send _.chain(games)
+    msg.send "(beisbol) TIME!\n" + _.chain(games)
       .filter((g) -> g.date.isAfter(yesterday) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
       .map((g) -> "#{displayDate(g.date, now)} #{g.desc}")

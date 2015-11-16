@@ -18,5 +18,8 @@
   "disassemble.coffee",
   "eight-ball.coffee",
   "lmgtfy.coffee",
-  "emoji.coffee"
+  "emoji.coffee",
+  "achievement_unlocked.coffee",
+  "fortune.coffee",
+  "bookmark.coffee"
 ]

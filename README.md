@@ -1,12 +1,16 @@
 # Hubot
 
+![](https://travis-ci.org/detroit-labs/hubot-badger.svg)
+
 This is a version of GitHub's Campfire bot, hubot. He's pretty cool.
 
 This version is designed to be deployed on [Heroku][heroku]. This README was generated for you by hubot to help get you started. Definitely update and improve to talk about your own instance, how to use and deploy, what functionality he has, etc!
 
 [heroku]: http://www.heroku.com
 
-### Testing Hubot Locally
+### Testing
+
+#### Running Hubot Locally
 
 You can test your hubot by running the following.
 
@@ -29,6 +33,17 @@ Then you can interact with hubot by typing `hubot help`.
     help - Displays all of the help commands that Hubot knows about.
     ...
 
+#### Running Unit Tests
+
+You can run [mocha](https://mochajs.org/) unit tests by running the following.
+
+    % npm test
+
+To create a new test for a script (e.g. `scripts/myscript.coffee`), create a spec file.
+
+    % touch tests/myscript.spec.coffee
+
+Refer to [this helpful guide](https://amussey.github.io/2015/08/11/testing-hubot-scripts.html) as well as other tests in the `tests` directory to learn more about writing unit tests for hubot scripts.
 
 ### Scripting
 
@@ -139,7 +154,7 @@ UI.
     % heroku config:add HUBOT_CAMPFIRE_TOKEN="..."
 
 Get the numeric IDs of the rooms you want the bot to join, comma delimited. If
-you want the bot to connect to `https://mysubdomain.campfirenow.com/room/42` 
+you want the bot to connect to `https://mysubdomain.campfirenow.com/room/42`
 and `https://mysubdomain.campfirenow.com/room/1024` then you'd add it like this:
 
     % heroku config:add HUBOT_CAMPFIRE_ROOMS="42,1024"
