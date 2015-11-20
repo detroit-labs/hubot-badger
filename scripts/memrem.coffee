@@ -10,30 +10,40 @@
 # Commands:
 #   hubot mem <keyword> - prints out saved resource
 #   hubot get <keyword> - prints out saved resource
+#   hubot get list - prints out saved keys
 #   hubot rem <keyword> <resource> - saves resource to specified keyword
 #   hubot set <keyword> <resource> - saves resource to specified keyword
 #
 # Author:
 #   snibbles
 
-memremId = (keyword) -> "memrem_#{keyword}"
+memremBrain = "memrem"
 
 onGet = (msg) ->
-  keyword = msg.match[2]
-  key = memremId keyword
-  value = msg.robot.brain.get key
-  if value
+  key = msg.match[2]
+  if value = brainMatch(msg.robot.brain, key)
     msg.send value
   else
-    msg.send "we does not has #{keyword}"
+    msg.send "Couldn't find #{key}."
+
+brainMatch = (brain, key) ->
+  storage = (brain.get memremBrain) ? {}
+  return storage[key]
 
 onSet = (msg) ->
-  keyword = msg.match[2]
+  key = msg.match[2]
   value = msg.match[3]
-  key = memremId keyword
-  msg.robot.brain.set key, value
-  msg.send "saved #{value} as #{keyword}"
+  brain = msg.robot.brain
+  storage = (brain.get memremBrain) ? {}
+  storage[key] = value
+  brain.set memremBrain, storage
+  msg.send "saved #{value} as #{key}"
 
 module.exports = (robot) ->
-  robot.respond /(mem|get) (?!safesearch)([a-zA-Z]*)$/i, onGet
-  robot.respond /(rem|set) (?!safesearch)([a-zA-Z]*) (.*)/i, onSet
+  robot.respond /(mem|get) (?!safesearch|list)([a-zA-Z0-9_-]*)$/i, onGet
+  robot.respond /(rem|set) (?!safesearch|list)([a-zA-Z0-9_-]*) (.*)/i, onSet
+
+  robot.respond /(mem|get) list$/i, (msg) ->
+    storage = msg.robot.brain.get memremBrain
+    msg.send Object.keys(storage).join(", ")
+
