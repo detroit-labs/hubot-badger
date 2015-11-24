@@ -23,7 +23,7 @@ onGet = (msg) ->
   key = msg.match[2]
   brain = msg.robot.brain
   if old = oldWay(brain, key)
-    saveAndRemoveOld(brain, key, value)
+    saveAndRemoveOld(brain, key, old)
     msg.send old
   else if value = brainMatch(brain, key)
     msg.send value
