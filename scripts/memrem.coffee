@@ -22,10 +22,9 @@ memremBrain = "memrem"
 onGet = (msg) ->
   key = msg.match[2]
   brain = msg.robot.brain
-  value = ""
   if old = oldWay(brain, key)
-    value = old
     saveAndRemoveOld(brain, key, value)
+    msg.send old
   else if value = brainMatch(brain, key)
     msg.send value
   else
