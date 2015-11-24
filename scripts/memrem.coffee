@@ -21,7 +21,11 @@ memremBrain = "memrem"
 
 onGet = (msg) ->
   key = msg.match[2]
-  if value = brainMatch(msg.robot.brain, key)
+  brain = msg.robot.brain
+  if old = oldWay(brain, key)
+    saveAndRemoveOld(brain, key, value)
+    msg.send old
+  else if value = brainMatch(brain, key)
     msg.send value
   else
     msg.send "Couldn't find #{key}."
@@ -29,6 +33,17 @@ onGet = (msg) ->
 brainMatch = (brain, key) ->
   storage = (brain.get memremBrain) ? {}
   return storage[key]
+
+oldWay = (brain, key) ->
+  if old = brain.get "memrem_#{key}"
+    return old
+  return null
+
+saveAndRemoveOld = (brain, key, value) ->
+  storage = brain.get memremBrain
+  storage[key] = value
+  brain.set memremBrain, storage
+  brain.remove "memrem_#{key}"
 
 onSet = (msg) ->
   key = msg.match[2]
