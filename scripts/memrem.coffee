@@ -13,6 +13,7 @@
 #   hubot get list - prints out saved keys
 #   hubot rem <keyword> <resource> - saves resource to specified keyword
 #   hubot set <keyword> <resource> - saves resource to specified keyword
+#   hubot remove <keyword> - Removes a key-value pair
 #
 # Author:
 #   snibbles
@@ -61,4 +62,12 @@ module.exports = (robot) ->
   robot.respond /(mem|get) list$/i, (msg) ->
     storage = msg.robot.brain.get memremBrain
     msg.send Object.keys(storage).join(", ")
+
+  robot.respond /remove (?!safesearch|list)([a-zA-Z0-9_-]*)$/i, (msg) ->
+    key = msg.match[1]
+    brain = msg.robot.brain
+    storage = brain.get memremBrain
+    delete storage[key]
+    brain.set memremBrain, storage
+    msg.send "Deleted #{key}."
 
