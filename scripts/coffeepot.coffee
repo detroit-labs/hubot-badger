@@ -59,7 +59,12 @@ coffee_thoughts = [
   "If you immersed your head in a bucket of hot coffee, I wouldn't be a bit surprised.",
   "Black Ivory coffee is the most expensive kind of coffee on Earth, and it’s made from Elephant poop.",
   "Coffee was the first food in the world to be freeze-dried.",
-  "Coffee with added cream cools about 20% slower than plain black coffee."
+  "Coffee with added cream cools about 20% slower than plain black coffee.",
+  "https://media3.giphy.com/media/MSixuOOVyQbF6/200w.gif",
+  "http://www.lovethispic.com/uploaded_images/213567-Coffee.gif",
+  "http://33.media.tumblr.com/4dcd6db9f77426ec2179c15770b34195/tumblr_nglutqYGe71s30ko5o1_250.gif",
+  "http://cdn1.theodysseyonline.com/files/2015/08/29/635764712380757292-1012460974_chug-coffee-o.gif",
+  "https://media2.giphy.com/media/R1fqW7QTkR8je/200.gif"
 ]
 # coffeelint: enable=max_line_length
 
