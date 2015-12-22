@@ -22,7 +22,6 @@
     "datejs": "1.0.0-rc3",
     "github": "0.2.3",
     "googlemaps": "0.1.20",
-    "hipchatter": "~0.1",
     "hubot": "2.11.0",
     "hubot-cron": "0.2.7",
     "hubot-hipchat": "2.7.5",
