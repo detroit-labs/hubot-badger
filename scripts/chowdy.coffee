@@ -15,4 +15,4 @@
 
 module.exports = (robot) ->
   robot.hear /chowdy/i, (msg) ->
-    msg.send "https://s3.amazonaws.com/uploads.hipchat.com/31582/211417/kAMyD3ixawKfaVX/chowdy.png"
+    msg.send 'http://i.imgur.com/FfsCG1n.png'
