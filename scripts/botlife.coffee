@@ -17,41 +17,36 @@
 #   macklinu
 
 snackResponses = [
-  "Om nom nom!",
-  "That's very nice of you!",
-  "Oh thx!",
-  "Thank you very much.",
-  "Thanks for the treat!",
+  "Om nom nom!"
+  "That's very nice of you!"
+  "Oh thx!"
+  "Thank you very much."
+  "Thanks for the treat!"
 ]
 
 snackEmoticons = [
-  "(cookie)",
-  "(lolwut)",
-  "(shawarma)",
-  "(bacon)",
-  "(oreo)",
-  "(pizza)",
-  "(beans)",
-  "(bagels)",
-  "(greendot)",
-  "(bourbon)",
-  "(chocobunny)",
-  "(coffee)",
-  "(beer)",
-  "(greenbeer)",
-  "(chompy)"
+  ":cookie:"
+  ":lol:"
+  ":shawarma:"
+  ":bacon:"
+  ":oreo:"
+  ":pizza:"
+  ":bagels:"
+  ":greendot:"
+  ":bourbon:"
+  ":chocolate_bar:"
+  ":coffee:"
+  ":beer:"
+  ":tayne"
 ]
 
 slapResponses = [
-  "Ouch!",
-  "What the frack?!?",
-  "(facepalm)",
-  "(oops)",
-  ":'(",
-  "(pirate)",
-  "(fu)",
-  "(omg)",
-  "(wtf)"
+  "Ouch!"
+  "What the frack?!?"
+  ":facepalm:"
+  ":dizzy_face:"
+  ":'("
+  ":sadtroll:"
 ]
 
 LOWER = 3
@@ -66,7 +61,7 @@ module.exports = (robot) ->
 
   robot.respond /botslap/i, (msg) ->
     decreaseHp()
-    if hp <= MIN_HP then killBot msg  else respondToSlap msg 
+    if hp <= MIN_HP then killBot msg else respondToSlap msg
 
   increaseHp = ->
     hp += randomInt LOWER, UPPER
@@ -74,8 +69,10 @@ module.exports = (robot) ->
 
   respondToSnack = (msg) ->
     increaseHp()
-    response = "#{msg.random snackEmoticons} #{msg.random snackResponses} #{hpString()}"
-    msg.send response
+    emoticon = msg.random snackEmoticons
+    response = msg.random snackResponses
+    message = "#{emoticon} #{response} #{hpString()}"
+    msg.send message
 
   decreaseHp = ->
     hp -= randomInt LOWER, UPPER
@@ -91,6 +88,8 @@ module.exports = (robot) ->
     process.exit 0
 
   randomInt = (lower, upper) ->
-    [lower, upper] = [0, lower]     unless upper?           # Called with one argument
-    [lower, upper] = [upper, lower] if lower > upper        # Lower must be less then upper
-    Math.floor(Math.random() * (upper - lower + 1) + lower) # Last statement is a return value
+    # Called with one argument
+    [lower, upper] = [0, lower] unless upper?
+    # Lower must be less then upper
+    [lower, upper] = [upper, lower] if lower > upper
+    Math.floor(Math.random() * (upper - lower + 1) + lower)

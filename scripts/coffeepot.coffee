@@ -18,7 +18,7 @@ moment = require("moment")
 # coffeelint: disable=max_line_length
 coffee_thoughts = [
   "Coffee is Ready!",
-  "(klaw)",
+  ":klaw:",
   "Keep Calm and Drink Coffee",
   "Life Begins After Coffee",
   "The world consumes close to 2.25 billion cups of coffee every day.",
@@ -77,7 +77,7 @@ module.exports = (robot) ->
       if burner_count > 0
         idx = [Math.floor(Math.random() * coffee_thoughts.length)]
         coffee_thought = coffee_thoughts[idx]
-        robot.messageRoom room, "(coffee) (successful) — " + coffee_thought
+        robot.messageRoom room, ":coffee: :checkered_flag: — #{coffee_thought}"
         robot.brain.set("coffeepot-finish-timestamp", moment())
       res.end "OK"
     else
@@ -92,7 +92,7 @@ module.exports = (robot) ->
       when 2, 3 then " and the coffeepot has #{burner_count} burners on"
       else ""
     timestamp = moment(robot.brain.get("coffeepot-finish-timestamp"))
-    msg.send "(coffee)Coffee was last brewed #{timestamp.fromNow()}#{status}."
+    msg.send ":coffee: Coffee was last brewed #{timestamp.fromNow()}#{status}."
 
 
   robot.router.post "/coffeepot/status", (req, res) ->
