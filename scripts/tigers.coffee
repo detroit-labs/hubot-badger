@@ -181,12 +181,20 @@ games = [{ date: Date.parse('4/6/15'), desc: "Twins 1:08p" },
 { date: Date.parse('10/3/15'), desc: "at White Sox 7:10p" },
 { date: Date.parse('10/4/15'), desc: "at White Sox 3:10p" }]
 
-daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+daysOfWeek = [
+  'Sunday'
+  'Monday'
+  'Tuesday'
+  'Wednesday'
+  'Thursday'
+  'Friday'
+  'Saturday'
+]
 
 displayDate = (date, now) ->
   day = date.getDay()
   dayOfWeek = daysOfWeek[day]
-  if Date.compare( date, now ) == 0
+  if Date.compare(date, now) == 0
     dayOfWeek = "Today"
   else if day == now.getDay() + 1
     dayOfWeek = "Tomorrow"
@@ -197,7 +205,7 @@ module.exports = (robot) ->
     now = Date.today().clearTime()
     yesterday = Date.today().add(-1).days()
     nextWeek = Date.today().add(7).days()
-    msg.send "(beisbol) TIME!\n" + _.chain(games)
+    msg.send ":beisbol: TIME!\n" + _.chain(games)
       .filter((g) -> g.date.isAfter(yesterday) and g.date.isBefore(nextWeek))
       .sortBy((g) -> g.date)
       .map((g) -> "#{displayDate(g.date, now)} #{g.desc}")

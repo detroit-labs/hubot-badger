@@ -1,136 +1,121 @@
 # Description:
-#   Roll x number of y sided dice. 
+#   Roll x number of y sided dice.
 #
 # Dependencies:
-#	None
+#   None
 #
 # Configuration:
-#	None
+#   None
 #
 # Commands:
 #   hubot roll me <n>d<sides> - rolls n number of n sided dice
-# 	hubot dice me <n>d<sides> - rolls n number of n sided dice
-# 	hubot roll <n>d<sides> - rolls n number of n sided dicee
-#	hubot dice <n>d<sides> - rolls n number of n sided dice
+#   hubot dice me <n>d<sides> - rolls n number of n sided dice
+#   hubot roll <n>d<sides> - rolls n number of n sided dicee
+#   hubot dice <n>d<sides> - rolls n number of n sided dice
 #
 # Author:
-#	Will Hinchman
-#	Yes, I know dices isn't a word. Also, Yes, I like to make Hal sassy.
+#   Will Hinchman
+#   Yes, I know dices isn't a word. Also, Yes, I like to make Hal sassy.
 
 randomCrits = [
-	"CRITS!",
-	"REKT!",
-	"It's super effective!",
-	"(boom)(roasted)",
-	"Throwing Rocks Tonight!",
-	"YES!",
-	"😍",
-	"😎😎😎",
-	"(burningalive)",
-	"(notbad)",
-	"(fuckyeah)",
-	"natch"
+  "CRITS!",
+  "REKT!",
+  "It's super effective!",
+  ":boom:",
+  "Throwing Rocks Tonight!",
+  "YES!",
+  "😍",
+  "😎😎😎",
+  "natch"
 ]
 
 randomFails = [
-	"FAIL!",
-	"(facepalm)",
-	"Oh. I'm Sorry.",
-	"That's... terrible",
-	"😐",
-	"Hope that wasn't important",
-	"😭",
-	"¯\\_(ツ)_/¯",
-	"TPK! TPK! TPK!",
-	"(areyoukiddingme)",
-	"(ohgodwhy)"
+  "FAIL!",
+  ":facepalm:",
+  "Oh. I'm Sorry.",
+  "That's... terrible",
+  "😐",
+  "Hope that wasn't important",
+  "😭",
+  "¯\\_(ツ)_/¯",
+  "TPK! TPK! TPK!"
 ]
 
 randomNum = (max,min=0) ->
-	return (Math.floor(Math.random() * (max - min) + min)) + 1
+  return (Math.floor(Math.random() * (max - min) + min)) + 1
 # min is set to 0 by default but a different value can be passed to function
 
 parseDice = (diceRoll) ->
-	diceRoll = diceRoll.replace /[\a-c\e-z\s\-\_\W+]/gi, ""
-	diceRoll = diceRoll.replace /(\s)/g, ""
-	diceRoll = diceRoll.toLowerCase()
+  diceRoll = diceRoll.replace /[\a-c\e-z\s\-\_\W+]/gi, ""
+  diceRoll = diceRoll.replace /(\s)/g, ""
+  diceRoll = diceRoll.toLowerCase()
 
 rollDice = (dices,sides) ->
-	outDice = []
+  outDice = []
 
-	for i in [1..dices] by 1
-		number = randomNum(sides)
-		if sides == 100
-			number = number - 1
-		outDice.push number
+  for i in [1..dices] by 1
+    number = randomNum(sides)
+    if sides == 100
+      number = number - 1
+    outDice.push number
 
-	dices = outDice
+  dices = outDice
 
 
 averageDiceRolls = (dices,sides) ->
-	sum = 0
-	for num in dices
-		sum = sum + num
+  sum = 0
+  for num in dices
+    sum = sum + num
 
-	avg = sum/dices.length
-	#can't be less than 1.
-	if avg < 1.0
-		avg = 1.0
+  avg = sum/dices.length
+  #can't be less than 1.
+  if avg < 1.0
+    avg = 1.0
 
-	return avg
+  return avg
 
 module.exports = (robot) ->
-	robot.respond /(?:roll|dice)(?: me)?(.*)/i, (msg) ->
-		diceToRoll = msg.match[1]
-		diceToRoll = parseDice(diceToRoll)	
-		userName = msg.message.user.name
-		diceArray = diceToRoll.split("d")
+  robot.respond /(?:roll|dice)(?: me)?(.*)/i, (msg) ->
+    diceToRoll = msg.match[1]
+    diceToRoll = parseDice(diceToRoll)
+    userName = msg.message.user.name
+    diceArray = diceToRoll.split("d")
 
-		if not diceToRoll.length or !diceArray[1]
-			msg.send "Uhh, dice without sides don't exist, #{userName}. \"roll me <n>d<sides>\""
-		else
-			if diceArray.length == 2
-				diceCount = diceArray[0]
-				sides = diceArray[1]
+    if not diceToRoll.length or !diceArray[1]
+      msg.send "Uhh, dice without sides don't exist, #{userName}. \"roll me <n>d<sides>\""
+    else
+      if diceArray.length == 2
+        diceCount = diceArray[0]
+        sides = diceArray[1]
 
-				if diceCount > 20
-					diceCount = 20
-					msg.send "Whoa, #{userName}, chill! Only 20 dice at a time please."
+        if diceCount > 20
+          diceCount = 20
+          msg.send "Whoa, #{userName}, chill! Only 20 dice at a time please."
 
-				if sides > 10000
-					sides = 10000
-					msg.send "Dude, #{userName}, more than ten thousand sides? I'm not a supercomputer, you know."
-				
-				if diceCount < 1
-					diceCount = 1
+        if sides > 10000
+          sides = 10000
+          msg.send "Dude, #{userName}, more than ten thousand sides? I'm not a supercomputer, you know."
 
-				if sides < 2
-					sides = 2
-					msg.send "Is A Die With 1 Side, Still A Die? Let's try 2 sides instead."
+        if diceCount < 1
+          diceCount = 1
 
-				dices = rollDice(diceCount, sides)
+        if sides < 2
+          sides = 2
+          msg.send "Is A Die With 1 Side, Still A Die? Let's try 2 sides instead."
 
-				msg.send "Here You Go, #{userName}: #{dices}"
+        dices = rollDice(diceCount, sides)
 
-				averageRoll = averageDiceRolls(dices, sides)
+        msg.send "Here You Go, #{userName}: #{dices}"
 
-				#cheer!
-				if averageRoll >= (sides * 0.85)
-					msg.send msg.random randomCrits
+        averageRoll = averageDiceRolls(dices, sides)
 
-				#jeer!
-				if averageRoll <= Math.ceil((sides * 0.15),1)
-					msg.send msg.random randomFails
+        #cheer!
+        if averageRoll >= (sides * 0.85)
+          msg.send msg.random randomCrits
 
-			else
-				msg.send "Try again, #{userName}. \"roll me <n>d<sides>\""
+        #jeer!
+        if averageRoll <= Math.ceil((sides * 0.15),1)
+          msg.send msg.random randomFails
 
-
-
-
-
-
-
-
- 
-
+      else
+        msg.send "Try again, #{userName}. \"roll me <n>d<sides>\""
