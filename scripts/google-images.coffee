@@ -81,15 +81,15 @@ mustachMe = (msg, query, cb) ->
       null_check_callback(image, cb)
 
 imageMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, ''), count, (image) ->
+  googleApi msg, imageQuery(msg, query, null, null), count, (image) ->
       null_check_callback(image, cb)
 
 animateMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'gif'), count, (image) ->
+  googleApi msg, imageQuery(msg, query, 'gif', null), count, (image) ->
       null_check_callback(image, cb)
 
 faceMe = (msg, query, count, cb) ->
-  googleApi msg, imageQuery(msg, query, 'face'), count, cb
+  googleApi msg, imageQuery(msg, query, null, 'face'), count, cb
   
 null_check_callback = (image, cb) ->
   if image?
@@ -97,19 +97,24 @@ null_check_callback = (image, cb) ->
   else
     cb 'No Images Found'
   
-imageQuery = (msg, query, type) ->
+imageQuery = (msg, query, fileType, imgType) ->
   safe_search_off = msg.robot.brain.get(safesearch_lookup_id(msg)) == "off"
-  q = v: '1.0', rsz: 8, q: query, safe: 'active'
+  q = num: 8, q: query, safe: 'active', alt: 'json'
+  q.cx = process.env.HUBOT_GOOGLE_CUSTOME_SEARCH_ENGINE_ID
+  q.key = process.env.HUBOT_GOOGLE_CUSTOME_SEARCH_ENGINE_API_KEY
   q.safe = 'off' if safe_search_off is true
-  q.imgtype = q.as_filetype = type
+  q.searchType = 'image'
+  q.fileType = fileType if fileType
+  q.imgType = imgType if imgType
   q
   
 googleApi = (msg, q, count, cb) ->
-  msg.http('http://ajax.googleapis.com/ajax/services/search/images')
+
+  msg.http('https://www.googleapis.com/customsearch/v1')
     .query(q)
     .get() (err, res, body) ->
       images = JSON.parse(body)
-      images = images.responseData?.results
+      images = (item.link for item in images.items)
       number_returned = 0
       for i in [1..count] by 1
         if images?.length > 0
@@ -123,7 +128,7 @@ googleApi = (msg, q, count, cb) ->
 randomImageUrl = (msg, images) ->
   image = msg.random images
   images.splice(images.indexOf(image), 1)
-  "#{image.unescapedUrl}#.png"
+  image
 		
 lookup_id = (msg) ->
   (msg.envelope.room or msg.envelope.user.id)
