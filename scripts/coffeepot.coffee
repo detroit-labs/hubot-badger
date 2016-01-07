@@ -110,6 +110,6 @@ module.exports = (robot) ->
   endOfWorkDay = ->
     burner_count = robot.brain.get("coffeepot-burner-count")
     if burner_count > 0
-      robot.messageRoom room, ":coffee: It's the end of the day and the coffeepot is still on!"
+      robot.messageRoom room, ":coffee: The coffeepot is still on!"
 
   new cronJob('0 0 17 * * 1-5', endOfWorkDay, null, true)
