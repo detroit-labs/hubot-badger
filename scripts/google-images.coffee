@@ -99,7 +99,7 @@ null_check_callback = (image, cb) ->
   
 imageQuery = (msg, query, fileType, imgType) ->
   safe_search_off = msg.robot.brain.get(safesearch_lookup_id(msg)) == "off"
-  q = num: 8, q: query, safe: 'active', alt: 'json'
+  q = num: 8, q: query, safe: 'medium', alt: 'json'
   q.cx = process.env.HUBOT_GOOGLE_CUSTOME_SEARCH_ENGINE_ID
   q.key = process.env.HUBOT_GOOGLE_CUSTOME_SEARCH_ENGINE_API_KEY
   q.safe = 'off' if safe_search_off is true
