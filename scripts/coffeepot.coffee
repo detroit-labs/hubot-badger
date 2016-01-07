@@ -14,6 +14,7 @@
 #
 
 moment = require("moment")
+cronJob = require('cron').CronJob
 
 # coffeelint: disable=max_line_length
 coffee_thoughts = [
@@ -104,3 +105,12 @@ module.exports = (robot) ->
       res.end "OK"
     else
       res.end "Nope."
+
+
+  endOfWorkDay = ->
+    burner_count = robot.brain.get("coffeepot-burner-count")
+    if burner_count > 0
+      robot.messageRoom room, ":coffee: The coffeepot is still on!"
+
+  # every monday through friday at 5:00pm
+  new cronJob('0 0 17 * * 1-5', endOfWorkDay, null, true)
