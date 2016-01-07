@@ -112,4 +112,5 @@ module.exports = (robot) ->
     if burner_count > 0
       robot.messageRoom room, ":coffee: The coffeepot is still on!"
 
+  # every monday through friday at 5:00pm
   new cronJob('0 0 17 * * 1-5', endOfWorkDay, null, true)
