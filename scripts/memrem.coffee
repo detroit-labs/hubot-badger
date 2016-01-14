@@ -57,6 +57,9 @@ onSet = (msg) ->
 
 module.exports = (robot) ->
   robot.respond /(mem|get) (?!safesearch|list)([a-zA-Z0-9_-]*)$/i, onGet
+  
+  # (?:.|[\r\n]) is a non capturing group (?:), so that match[3] still matches the value
+  # the . matches all characters except for new lines so the .|\r\n allows for multi line matching
   robot.respond /(rem|set) (?!safesearch|list)([a-zA-Z0-9_-]*) ((?:.|[\r\n])+)/i, onSet
 
   robot.respond /(mem|get) list$/i, (msg) ->
