@@ -20,3 +20,6 @@ module.exports = (robot) ->
 
   robot.respond /refactoring/i, (msg) ->
     msg.send 'https://i.imgur.com/muaNCBk.gif'
+
+  robot.respond /improvinghal/i, (msg) ->
+    msg.send 'http://i.imgur.com/5HT8OzI.gif'
