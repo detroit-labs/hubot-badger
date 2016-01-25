@@ -18,5 +18,5 @@ module.exports = (robot) ->
   robot.respond /programming/i, (msg) ->
     msg.send 'http://i.imgur.com/fx7mMeB.gif'
 
-  robot.response /refactoring/i, (msg) ->
+  robot.respond /refactoring/i, (msg) ->
     msg.send 'https://i.imgur.com/muaNCBk.gif'
