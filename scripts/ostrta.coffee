@@ -42,12 +42,14 @@ percentFromString = (percentString) ->
   parseInt(percentString, 10)
   
 tellRobotWhatToDo = (robot, command, key) ->
-  robot[commandMap[command]](new RegExp("(#{key}(\\s|$))", 'i'), (msg) ->
+  regex = new RegExp("#{key}(\\s|$)", 'i')
+  robot[commandMap[command]](regex, (msg) ->
+    console.log msg
     response = fetch(robot, brainKey(command, key))
     if response
       percent = fetch(robot, brainKey(command, key, "Percent"))
       if Math.random() <= (percent / 100.0)
-        msg.send response
+        msg.send msg.match[0].replace(regex, response)
   )
   
 loadAllCommands = ( robot, command ) ->
