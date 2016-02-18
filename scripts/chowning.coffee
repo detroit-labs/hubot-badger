@@ -14,7 +14,7 @@
 
 suggestions = [
   "Did you mean Matt Tyndall?",
-  "Maybe you meant Matt Lauer.",
+  "http://i.imgur.com/NWNHh1e.png Maybe you meant Matt Lauer.",
   "Hypothetically, of course."
 ]
 
