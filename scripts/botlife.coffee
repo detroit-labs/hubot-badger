@@ -37,7 +37,7 @@ snackEmoticons = [
   ":chocolate_bar:"
   ":coffee:"
   ":beer:"
-  ":tayne"
+  ":tayne:"
 ]
 
 slapResponses = [
