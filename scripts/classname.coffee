@@ -7,6 +7,7 @@
 # Configuration:
 #
 # Commands:
+#   hubot classname - generates class names suitable for enterprise-friendly object-oriented programming languages
 #
 # none yet
 #
