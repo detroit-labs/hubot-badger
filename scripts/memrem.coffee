@@ -64,7 +64,7 @@ module.exports = (robot) ->
 
   robot.respond /(mem|get) list$/i, (msg) ->
     storage = msg.robot.brain.get memremBrain
-    msg.send Object.keys(storage).join(", ")
+    msg.send Object.keys(storage).sort().join(", ")
 
   robot.respond /remove (?!safesearch|list)([a-zA-Z0-9_-]*)$/i, (msg) ->
     key = msg.match[1]
