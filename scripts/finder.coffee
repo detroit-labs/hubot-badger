@@ -24,13 +24,11 @@
 # https://github.com/olalonde/node-yelp
 Yelp = require 'yelp'
 
-# I know I'm not really supposed to expose these secrets.
-# I'm not sure where to set the ENV variables. Help?
 yelp = new Yelp {
-  consumer_key: "O-ZaBbLcuC6T1GdJD6rdDQ",
-  consumer_secret: "HbbI1K5RWud7gkADzmsyntC1nfo",
-  token: "hGuFRantjeGCGMISPyG5eRuJp8EXtVn7",
-  token_secret: "UklZ877wZakr6L797Vlgvu0R0vw"
+  consumer_key: process.env.YELP_CONSUMER_KEY,
+  consumer_secret: process.env.YELP_CONSUMER_SECRET,
+  token: process.env.YELP_ACCESS_TOKEN,
+  token_secret: process.env.YELP_ACCESS_TOKEN_SECRET
 }
 
 module.exports = (robot) ->
@@ -38,7 +36,7 @@ module.exports = (robot) ->
     args = msg.message.text.split " "
     terms = msg.match[1]
 
-    msg.send "Finding " + terms + " in the Detroit area:"
+    msg.send "Finding " + terms + " in the Detroit area..."
 
     yelp.search { term: terms, location: 'Detroit' }
     .then (data) ->
