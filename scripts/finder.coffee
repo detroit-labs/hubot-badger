@@ -19,12 +19,13 @@
 # Author:
 #   yramocan
 
-
 # Javascript client for Yelp's API (v2.0)
 # Copyright (c) 2012 Olivier Lalonde olalonde@gmail.com
 # https://github.com/olalonde/node-yelp
 Yelp = require 'yelp'
 
+# I know I'm not really supposed to expose these secrets.
+# I'm not sure where to set the ENV variables. Help?
 yelp = new Yelp {
   consumer_key: "O-ZaBbLcuC6T1GdJD6rdDQ",
   consumer_secret: "HbbI1K5RWud7gkADzmsyntC1nfo",
@@ -36,22 +37,11 @@ module.exports = (robot) ->
   robot.respond /find me a?\s?(.+)/i, (msg) ->
     args = msg.message.text.split " "
     terms = msg.match[1]
+
     msg.send "Finding " + terms + " in the Detroit area:"
 
     yelp.search { term: terms, location: 'Detroit' }
     .then (data) ->
-      msg.send result.name + " (" + result.rating + " stars)" for result in data.businesses
-    .catch (err) ->
-      msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
-
-  robot.respond /find me a?\s?(.+) in (.+)/i, (msg) ->
-    args = msg.message.text.split " "
-    terms = msg.match[1]
-    location = msg.match[2]
-    msg.send "Finding " + terms + " in the " + location + " area:"
-
-    yelp.search { term: terms, location: location }
-    .then (data) ->
-      msg.send result.name + " (" + result.rating + " stars)" for result in data.businesses
+      msg.send "— " + result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
       msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
