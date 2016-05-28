@@ -36,11 +36,11 @@ module.exports = (robot) ->
   robot.respond /find me a?/i, (msg) ->
     args = msg.message.text.split " "
     query = args[args.length - 1]
-    msg.send capitalize query + " in the area:"
+    msg.send capitalize "Finding " + query + " in the area:"
 
     yelp.search { term: query, location: 'Detroit' }
     .then (data) ->
-      msg.send "Finding " + result.name + " (" + result.rating + " stars)" for result in data.businesses
+      msg.send result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
       msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
 
