@@ -33,17 +33,25 @@ yelp = new Yelp {
 }
 
 module.exports = (robot) ->
-  robot.respond /find me a?/i, (msg) ->
+  robot.respond /find me a?\s?(.+)/i, (msg) ->
     args = msg.message.text.split " "
-    query = args[args.length - 1]
-    msg.send capitalize "Finding " + query + " in the area:"
+    terms = msg.match[1]
+    msg.send "Finding " + terms + " in the Detroit area:"
 
-    yelp.search { term: query, location: 'Detroit' }
+    yelp.search { term: terms, location: 'Detroit' }
     .then (data) ->
       msg.send result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
       msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
 
-# Since JS couldn't include a basic word capitalization method...
-capitalize = (string) ->
-    string.charAt(0).toUpperCase() + string.slice(1);
+  robot.respond /find me a?\s?(.+) in (.+)/i, (msg) ->
+    args = msg.message.text.split " "
+    terms = msg.match[1]
+    location = msg.match[2]
+    msg.send "Finding " + terms + " in the " + location + " area:"
+
+    yelp.search { term: terms, location: location }
+    .then (data) ->
+      msg.send result.name + " (" + result.rating + " stars)" for result in data.businesses
+    .catch (err) ->
+      msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
