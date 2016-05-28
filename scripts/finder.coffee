@@ -36,9 +36,9 @@ module.exports = (robot) ->
 
     yelp.search { term: 'lunch', location: 'Detroit' }
     .then (data) ->
-      console.log result.name + " (" + result.rating + " stars)" for result in data.businesses
+      msg.send "Finding " + result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
-      console.error(err)
+      msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
 
 # Since JS couldn't include a basic word capitalization method...
 capitalize = (string) ->
