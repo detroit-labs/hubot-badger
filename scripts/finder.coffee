@@ -38,7 +38,7 @@ module.exports = (robot) ->
 
     msg.send "Finding " + terms + " in the Detroit area..."
 
-    yelp.search { term: terms, location: 'Detroit' }
+    yelp.search { term: terms, location: 'Detroit', radius_filter: 4800 }
     .then (data) ->
       msg.send "— " + result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
