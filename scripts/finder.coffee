@@ -1,5 +1,6 @@
 # Description:
-#   Finder command for Hubot which pulls
+#   Finder command for Hubot which pulls from the Yelp API.
+#   Can only search in Detroit right now.
 #
 # Dependencies:
 #   yelp
@@ -12,6 +13,8 @@
 #   e.g. —
 #     hubot find me a quick lunch
 #     hubot find me dinner
+#     hubot find me breakfast
+#     hubot find me a mechanic
 #
 # Author:
 #   yramocan
