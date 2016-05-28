@@ -19,6 +19,10 @@
 # Author:
 #   yramocan
 
+
+# Javascript client for Yelp's API (v2.0)
+# Copyright (c) 2012 Olivier Lalonde olalonde@gmail.com
+# https://github.com/olalonde/node-yelp
 Yelp = require 'yelp'
 
 yelp = new Yelp {
@@ -34,7 +38,7 @@ module.exports = (robot) ->
     query = args[args.length - 1]
     msg.send capitalize query + " in the area:"
 
-    yelp.search { term: 'lunch', location: 'Detroit' }
+    yelp.search { term: query, location: 'Detroit' }
     .then (data) ->
       msg.send "Finding " + result.name + " (" + result.rating + " stars)" for result in data.businesses
     .catch (err) ->
