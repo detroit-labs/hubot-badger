@@ -23,6 +23,7 @@
 # Copyright (c) 2012 Olivier Lalonde olalonde@gmail.com
 # https://github.com/olalonde/node-yelp
 Yelp = require 'yelp'
+Bitly = require 'bitly'
 
 yelp = new Yelp {
   consumer_key: process.env.YELP_CONSUMER_KEY,
@@ -31,15 +32,29 @@ yelp = new Yelp {
   token_secret: process.env.YELP_ACCESS_TOKEN_SECRET
 }
 
+bitly = new Bitly process.env.BITLY_ACCESS_TOKEN
+
 module.exports = (robot) ->
   robot.respond /find me a?\s?(.+)/i, (msg) ->
     args = msg.message.text.split " "
     terms = msg.match[1]
-
     msg.send "Finding " + terms + " in the Detroit area..."
 
-    yelp.search { term: terms, location: 'Detroit', radius_filter: 4800 }
+    # Searches within 5 miles (8000 meters).
+    # Limits to one random result to deter Analysis Paralysis.
+    # https://en.wikipedia.org/wiki/Analysis_paralysis
+    yelp.search { term: terms, location: 'Detroit', radius_filter: 8000 }
     .then (data) ->
-      msg.send "— " + result.name + " (" + result.rating + " stars)" for result in data.businesses
+      places = data.businesses.filter (x) -> x.rating > 2.5
+      len = places.length
+      result = places[Math.floor(Math.random() * Math.floor(len / 2))]
+
+      # Shorten URL using Bitly
+      bitly.shorten result.url
+      .then (response) ->
+        shortUrl = response.data.url
+        msg.send "How about " + result.name + " (" + result.rating + " stars)?"
+        msg.send "URL: " + (shortUrl || result.url)
+
     .catch (err) ->
       msg.send "There was an error locating your search results. Blame @nate-west-party-of-one."
