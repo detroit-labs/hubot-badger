@@ -3,7 +3,7 @@
 #   Can only search in Detroit right now.
 #
 # Dependencies:
-#   yelp
+#   yelp, bitly
 #
 # Configuration:
 #   None
