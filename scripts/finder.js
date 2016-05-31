@@ -52,6 +52,8 @@ module.exports = function(robot) {
     yelp.search({term: terms, location: 'Detroit', radius_filter: 8000})
     .then(function(data) {
       if (data.businesses.length < 1) {
+        // If there are no results in the area then provide
+        // informational response.
         msg.send('Couldn\'t find ' + terms + ' :\'(');
         return;
       }
