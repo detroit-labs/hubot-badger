@@ -51,6 +51,11 @@ module.exports = function(robot) {
     // https://en.wikipedia.org/wiki/Analysis_paralysis
     yelp.search({term: terms, location: 'Detroit', radius_filter: 8000})
     .then(function(data) {
+      if (data.businesses.length < 1) {
+        msg.send('Couldn't find " + terms + " :\'(');
+        return;
+      }
+
       var places = data.businesses.filter(function(x) {
         // Filter out businesses with ratings of 2.5 and lower.
         return x.rating > 2.5;
@@ -67,9 +72,9 @@ module.exports = function(robot) {
         var shortUrl = response.data.url;
         msg.send('How about ' + result.name + ' (' + result.rating + ' stars)?');
         msg.send('URL: ' + (shortUrl || result.url));
-      }).catch(function(err) {
-        msg.send('There was an error locating your search results. Blame @nate-west-party-of-one.');
       });
+    }).catch(function(err) {
+      msg.send('There was an error locating your search results. Blame @nate-west-party-of-one.');
     });
   });
 };
