@@ -23,6 +23,10 @@
 // Copyright (c) 2012 Olivier Lalonde olalonde@gmail.com
 // https://github.com/olalonde/node-yelp
 var Yelp = require('yelp');
+
+// Client for Bitly's API (v4.1.1)
+// By Tane Piper piper.tane@gmail.com
+// https://github.com/tanepiper/node-bitly
 var Bitly = require('bitly');
 
 var yelp = new Yelp({
