@@ -43,14 +43,14 @@ module.exports = (robot) ->
     # Searches within 5 miles (8000 meters).
     # Limits to one random result to deter Analysis Paralysis.
     # https://en.wikipedia.org/wiki/Analysis_paralysis
-    yelp.search { term: terms, location: 'Detroit', radius_filter: 8000 }
+    yelp.search({ term: terms, location: 'Detroit', radius_filter: 8000 })
     .then( (data) ->
       places = data.businesses.filter (x) -> x.rating > 2.5
       len = places.length
       result = places[Math.floor(Math.random() * Math.floor(len / 2))]
 
       # Shorten URL using Bitly
-      bitly.shorten result.url
+      bitly.shorten(result.url)
       .then( (response) ->
         shortUrl = response.data.url
         msg.send "How about " + result.name + " (" + result.rating + " stars)?"
