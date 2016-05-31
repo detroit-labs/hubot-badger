@@ -9,7 +9,7 @@
 //   None
 //
 // Commands:
-//   "hubot find me..."
+//   'hubot find me...'
 //   e.g. —
 //     hubot find me a quick lunch
 //     hubot find me dinner
@@ -22,8 +22,8 @@
 // Javascript client for Yelp's API (v2.0)
 // Copyright (c) 2012 Olivier Lalonde olalonde@gmail.com
 // https://github.com/olalonde/node-yelp
-var Yelp = require("yelp");
-var Bitly = require("bitly");
+var Yelp = require('yelp');
+var Bitly = require('bitly');
 
 var yelp = new Yelp({
   consumer_key: process.env.YELP_CONSUMER_KEY,
@@ -38,14 +38,14 @@ module.exports = function(robot) {
   var patt = /find me a?\s?(.+)/i;
 
   robot.respond(patt, function(msg) {
-    var args = msg.message.text.split(" ");
+    var args = msg.message.text.split(' ');
     var terms = msg.match[1];
-    msg.send("Finding " + terms + " in the Detroit area...");
+    msg.send('Finding ' + terms + ' in the Detroit area...');
 
     // Searches within 5 miles (8000 meters).
     // Limits to one random result to deter Analysis Paralysis.
     // https://en.wikipedia.org/wiki/Analysis_paralysis
-    yelp.search({ term: terms, location: 'Detroit', radius_filter: 8000 })
+    yelp.search({term: terms, location: 'Detroit', radius_filter: 8000})
     .then(function(data) {
       var places = data.businesses.filter(function(x) {
         // Filter out businesses with ratings of 2.5 and lower.
@@ -61,10 +61,10 @@ module.exports = function(robot) {
       // Shorten URL using Bitly
       bitly.shorten(result.url).then(function(response) {
         var shortUrl = response.data.url;
-        msg.send("How about " + result.name + " (" + result.rating + " stars)?");
-        msg.send("URL: " + (shortUrl || result.url));
+        msg.send('How about ' + result.name + ' (' + result.rating + ' stars)?');
+        msg.send('URL: ' + (shortUrl || result.url));
       }).catch(function(err) {
-        msg.send("There was an error locating your search results. Blame @nate-west-party-of-one.");
+        msg.send('There was an error locating your search results. Blame @nate-west-party-of-one.');
       });
     });
   });
