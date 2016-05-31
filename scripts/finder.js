@@ -59,9 +59,9 @@ module.exports = function(robot) {
       var len = places.length;
 
       if (len < 1) {
-        // If there are no results in the area then provide
+        // If there are no quality results in the area then provide
         // informational response.
-        msg.send('Couldn\'t find ' + terms + ' :\'(');
+        msg.send('Couldn\'t find a quality ' + terms + ' in the area :\'(');
         return;
       }
 
