@@ -21,5 +21,6 @@
   "achievement_unlocked.coffee",
   "fortune.coffee",
   "bookmark.coffee",
-  "countdown.coffee"
+  "countdown.coffee",
+  "finder.js"
 ]
