@@ -61,7 +61,7 @@ module.exports = function(robot) {
       if (len < 1) {
         // If there are no quality results in the area then provide
         // informational response.
-        msg.send('Couldn\'t find a quality ' + terms + ' in the area :\'(');
+        msg.send('Couldn\'t find quality ' + terms + ' in the area :\'(');
         return;
       }
 
