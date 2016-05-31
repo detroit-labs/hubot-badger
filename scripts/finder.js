@@ -51,19 +51,19 @@ module.exports = function(robot) {
     // https://en.wikipedia.org/wiki/Analysis_paralysis
     yelp.search({term: terms, location: 'Detroit', radius_filter: 8000})
     .then(function(data) {
-      if (data.businesses.length < 1) {
-        // If there are no results in the area then provide
-        // informational response.
-        msg.send('Couldn\'t find ' + terms + ' :\'(');
-        return;
-      }
-
       var places = data.businesses.filter(function(x) {
         // Filter out businesses with ratings of 2.5 and lower.
         return x.rating > 2.5;
       });
 
       var len = places.length;
+
+      if (len < 1) {
+        // If there are no results in the area then provide
+        // informational response.
+        msg.send('Couldn\'t find ' + terms + ' :\'(');
+        return;
+      }
 
       // Choose one random result in the top half of results returned
       // to the places array.
