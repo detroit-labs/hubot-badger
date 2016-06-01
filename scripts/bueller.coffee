@@ -27,10 +27,10 @@ benSteinAnyoneImages = [
 
 module.exports = (robot) ->
   
-  robot.hear /bueller/i, (msg) ->
+  robot.respond /bueller/i, (msg) ->
     msg.send msg.random benSteinBuellerImages
     msg.send "...Bueller?"
 
-  robot.hear /anyone\?/i, (msg) ->
+  robot.respond /anyone\?/i, (msg) ->
     msg.send msg.random benSteinAnyoneImages
     msg.send "Anyone, anyone?"
