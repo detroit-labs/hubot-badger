@@ -58,6 +58,13 @@ module.exports = function(robot) {
 
       var len = places.length;
 
+      if (len < 1) {
+        // If there are no quality results in the area then provide
+        // informational response.
+        msg.send('Couldn\'t find quality ' + terms + ' in the area :\'(');
+        return;
+      }
+
       // Choose one random result in the top half of results returned
       // to the places array.
       var result = places[Math.floor(Math.random() * Math.floor(len / 2))];
@@ -67,9 +74,9 @@ module.exports = function(robot) {
         var shortUrl = response.data.url;
         msg.send('How about ' + result.name + ' (' + result.rating + ' stars)?');
         msg.send('URL: ' + (shortUrl || result.url));
-      }).catch(function(err) {
-        msg.send('There was an error locating your search results. Blame @nate-west-party-of-one.');
       });
+    }).catch(function(err) {
+      msg.send('There was an error locating your search results. Blame @nate-west-party-of-one.');
     });
   });
 };
