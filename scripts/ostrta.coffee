@@ -70,7 +70,7 @@ module.exports = (robot) ->
   commands = _.keys(commandMap)
   commandsRegex = commands.join('|')
   quotedKeyRegex = "\"[^\"]+\""
-  singleWordKeyRegex = "[^\\s]+"
+  singleWordKeyRegex = "[^\\s\"]+"
   optionalPercentRegex = "[\\d]+%\\s"
   responseRegex = ".+"
   robot.respond new RegExp("(#{commandsRegex}) (#{quotedKeyRegex}|#{singleWordKeyRegex}) (#{optionalPercentRegex})?(#{responseRegex})$"), (msg) ->
