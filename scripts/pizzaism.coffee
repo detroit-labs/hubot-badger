@@ -16,7 +16,7 @@
 isms = [
     "Always raising our level of pizza.",
     "The pizzas we need are everywhere around us.",
-    "Responding with a pizz is the ante to play.",
+    "Dan Newport is a fopdoodle.",
     "Every Pizza. Every Time. No Exceptions. No Excuses.",
     "Obsessed with finding a better Pizza.",
     "Ignore the Pizza.",
