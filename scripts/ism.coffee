@@ -36,5 +36,5 @@ isms = [
 ]
 
 module.exports = (robot) ->
-    robot.hear /isms?\b/i, (msg) ->
+    robot.respond /isms?\b/i, (msg) ->
         msg.send msg.random isms
