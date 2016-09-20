@@ -36,5 +36,5 @@ isms = [
 ]
 
 module.exports = (robot) ->
-    robot.hear /pizza/i, (msg) ->
+    robot.respond /pizza/i, (msg) ->
         msg.send msg.random isms
