@@ -2,7 +2,6 @@
   "redis-brain.coffee",
   "shipit.coffee",
   "applause.coffee",
-  "bees.coffee",
   "github-status.coffee",
   "corgime.coffee",
   "ruby.coffee",
