@@ -14,6 +14,7 @@
 #   nwest
 
 ways_to_say_good_morning = [
+  "https://i.makeagif.com/media/2-11-2016/kDpxbc.gif",
   "http://media1.giphy.com/media/13E3GEE2zxlhhm/giphy.gif",
   "http://media3.giphy.com/media/frc5xfWMX0Vig/giphy.gif",
   "http://media.giphy.com/media/gBxL0G0DqZd84/giphy.gif",
