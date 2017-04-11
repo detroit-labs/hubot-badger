@@ -2,7 +2,7 @@
 #   Returns this week's Tigers' schedule
 #
 # Dependencies:
-#   underscore, datejs
+#   moment, request
 #
 # Configuration:
 #   None
@@ -34,7 +34,7 @@ module.exports = (robot) ->
       method: 'GET'
       uri: 'http://detroit-tigers-api.herokuapp.com/v1/games/upcoming'
       json: true
-    request.get options, (error, response, json) ->
+    request options, (error, response, json) ->
       { statusCode, statusMessage } = response
       switch
         when error then msg.send "Error: #{error.message}"
