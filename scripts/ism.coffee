@@ -14,25 +14,25 @@
 #   ted
 
 isms = [
-    "Always raising our level of awareness.",
-    "The inches we need are everywhere around us.",
-    "Responding with a sense of urgency is the ante to play.",
-    "Every Client. Every Time. No Exceptions. No Excuses.",
-    "Obsessed with finding a better way.",
-    "Ignore the noise.",
-    "It’s not about WHO is right; it’s about WHAT is right.",
-    "We are the \"they.\"",
-    "You have to take the roast out of the oven.",
-    "You’ll see it when you believe it.",
-    "We’ll figure it out.",
-    "A penny saved is a penny.",
-    "Numbers and money follow; they do not lead.",
-    "We eat our own dog food.",
-    "Simplicity is genius.",
-    "Innovation is rewarded. Execution is worshipped.",
-    "Do the right thing.",
-    "Every second counts.",
-    "Yes before no."
+    "Always raising our level of pizza.",
+    "The pizzas we need are everywhere around us.",
+    "Responding with a slice of pizza is the ante to play.",
+    "Every Pizza. Every Time. No Exceptions. No Excuses.",
+    "Obsessed with finding a better pizza.",
+    "Ignore the salad.",
+    "It’s not about WHO is right; it’s about WHAT PIZZA is right.",
+    "We are the \"pizza.\"",
+    "You have to take the pizza out of the oven.",
+    "You’ll pizza it when you believe it.",
+    "We’ll pizza it out.",
+    "A penny saved is a pizza.",
+    "Numbers and money follow; pizza leads.",
+    "We eat our own pizza.",
+    "Pizza is genius.",
+    "Innovation is rewarded. Pizza is worshipped.",
+    "Eat the right pizza.",
+    "Every pizza counts.",
+    "Pizza before no."
 ]
 
 module.exports = (robot) ->
