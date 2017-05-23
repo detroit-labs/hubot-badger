@@ -17,15 +17,17 @@ moment = require 'moment'
 request = require 'request'
 
 formatMessage = (json) ->
+  embolden = (str) -> "*#{str}*"
+  isAway = (opponent) -> opponent.startsWith('at')
   formatDate = (date) -> moment(date, 'YYYY-MM-DD').format('ddd MMM DD')
   formatTime = (time) -> if time then moment(time).format('h:mma') else 'TBD'
-  formattedGames = json.map (obj) ->
+  json.map (obj) ->
     date = formatDate obj.date
     time = formatTime obj.time
     opponent = obj.opponent
-    "#{date}, #{time} - #{opponent}"
+    gameString = "#{date}, #{time} - #{opponent}"
+    return if isAway(opponent) then gameString else embolden(gameString)
   .join '\n'
-  ":beisbol: TIME!\n#{formattedGames}"
 
 module.exports = (robot) ->
   robot.respond /tigers/i, (msg) ->
