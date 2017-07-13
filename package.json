@@ -39,7 +39,7 @@
     "yelp": "^1.0.1"
   },
   "engines": {
-    "node": "6.2.0",
+    "node": "6.11.1",
     "npm": "3.8.9"
   },
   "devDependencies": {
