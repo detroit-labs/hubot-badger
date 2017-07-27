@@ -18,11 +18,13 @@ request = require 'request'
 formatMessage = (json) ->
   getIcon = (platform) -> if platform is "ANDROID" then ":android:" else ""
   getUser = (checkOutBy) -> if not checkOutBy then "" else " - #{checkOutBy}"
+  getBatteryPercentage = (pct) -> if not pct || pct == -1 then "" else " :battery:" + pct * 100 + "%"
   result = ""
   for k,v of json
     icon = getIcon v.platform
     user = getUser v.checked_out_by
-    result += "#{icon} #{v.brand_and_model}, #{v.version}, #{v.screen_size}#{user}\n"
+    battery = getBatteryPercentage v.last_known_battery
+    result += "#{icon} #{v.brand_and_model}, #{v.version} #{v.screen_size}#{battery}#{user}\n"
   return result
 
 module.exports = (robot) ->
