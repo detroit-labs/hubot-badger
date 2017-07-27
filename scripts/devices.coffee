@@ -26,10 +26,11 @@ formatMessage = (json) ->
   return result
 
 module.exports = (robot) ->
+  secret = process.env.HUBOT_DEVICES_FIREBASE_DATABASE_SECRET
   robot.respond /devices/i, (msg) ->
     options =
       method: 'GET'
-      uri: 'https://device-manager-c5b89.firebaseio.com/devices.json'
+      uri: "https://device-manager-c5b89.firebaseio.com/devices.json?auth=#{secret}"
       json: true
     request options, (error, response, json) ->
       { statusCode, statusMessage } = response
