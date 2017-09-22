@@ -55,22 +55,17 @@ coffee_thoughts = [
   "Robusta coffee beans have twice as much caffeine as Arabica beans, but are of lower quality.",
   "Coffee sacks are usually made of hemp and weigh approximately 132 pounds when they are full of green coffee beans.",
   "There is no such bean as a Flavored bean, coffee is flavored after roasting with artificial flavored oils.",
-  "The world's first webcam was a coffeepot https://en.wikipedia.org/wiki/Trojan_Room_coffee_pot",
   "RFC2324 Hyper Text Coffee Pot Control Protocol https://www.ietf.org/rfc/rfc2324.txt",
   "If you immersed your head in a bucket of hot coffee, I wouldn't be a bit surprised.",
   "Black Ivory coffee is the most expensive kind of coffee on Earth, and it’s made from Elephant poop.",
   "Coffee was the first food in the world to be freeze-dried.",
   "Coffee with added cream cools about 20% slower than plain black coffee.",
-  "https://media3.giphy.com/media/MSixuOOVyQbF6/200w.gif",
-  "http://www.lovethispic.com/uploaded_images/213567-Coffee.gif",
-  "http://33.media.tumblr.com/4dcd6db9f77426ec2179c15770b34195/tumblr_nglutqYGe71s30ko5o1_250.gif",
-  "http://cdn1.theodysseyonline.com/files/2015/08/29/635764712380757292-1012460974_chug-coffee-o.gif",
-  "https://media2.giphy.com/media/R1fqW7QTkR8je/200.gif"
 ]
 # coffeelint: enable=max_line_length
 
 module.exports = (robot) ->
   room = process.env.HUBOT_COFFEEPOT_ANNOUNCE_ROOM
+  warning_room = process.env.HUBOT_COFFEEPOT_WARNING_ROOM
 
   robot.router.post "/coffeepot/finish", (req, res) ->
     if req.header("X-COFFEEPOT-KEY") == process.env.HUBOT_COFFEEPOT_KEY
@@ -110,7 +105,8 @@ module.exports = (robot) ->
   endOfWorkDay = ->
     burner_count = robot.brain.get("coffeepot-burner-count")
     if burner_count > 0
-      robot.messageRoom room, "@channel :coffee: The coffeepot is still on!"
+      robot.messageRoom room, "@channel :coffee: The 6th floor coffeepot is still on!"      
+      robot.messageRoom warning_room, "@channel :coffee: The 6th floor coffeepot is still on!"      
 
   # every monday through friday at 5:00pm
   new cronJob('0 0 17 * * 1-5', endOfWorkDay, null, true)
