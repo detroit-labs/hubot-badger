@@ -109,4 +109,4 @@ module.exports = (robot) ->
       robot.messageRoom warning_room, "@channel :coffee: The 6th floor coffeepot is still on!"      
 
   # every monday through friday at 5:00pm
-  new cronJob('0 0 17 * * 1-5', endOfWorkDay, null, true)
+  new cronJob('0 5 17 * * 1-5', endOfWorkDay, null, true)
