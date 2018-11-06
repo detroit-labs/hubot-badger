@@ -1,6 +1,5 @@
 [
   "redis-brain.coffee",
-  "shipit.coffee",
   "applause.coffee",
   "github-status.coffee",
   "corgime.coffee",
