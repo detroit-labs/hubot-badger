@@ -38,19 +38,14 @@ describe 'gbnf', =>
 
     context "when hubot hears 'gone but not forgotten'", ->
       it 'should reply with an image URL', ->
-        say 'gone but not forgotten'
-        containsReply()
-
-    context "when hubot hears 'gone but not forgotten'", ->
-      it 'should reply with an image URL', ->
-        say 'gone but not forgotten'
+        yield say 'gone but not forgotten'
         containsReply()
 
   describe 'adding a fallen comrade', =>
 
     context "when user tells hubot 'dont forget http://image.url/john.jpg'", =>
       it 'should add John to the not-forgotten list', =>
-        say "@hubot dont forget #{@john}"
+        yield say "@hubot dont forget #{@john}"
         addsComrade()
 
     context "when user tells hubot 'don't forget http://image.url/john.jpg'", =>
