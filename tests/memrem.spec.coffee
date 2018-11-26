@@ -21,19 +21,19 @@ describe 'memrem', ->
   describe 'rem', ->
 
     it 'should set a value for key', ->
-      @room.user.say 'user', '@hubot rem key value'
+      yield @room.user.say 'user', '@hubot rem key value'
       @room.robot.brain.set.should.have.been.calledWith 'memrem', {'key': 'value'}
 
     it 'should allow set as an alias', ->
-      @room.user.say 'user', '@hubot set dog image'
+      yield @room.user.say 'user', '@hubot set dog image'
       @room.robot.brain.set.should.have.been.calledWith 'memrem', {'dog': 'image'}
 
     it 'should ignore safesearch as a keyword', ->
-      @room.user.say 'user', '@hubot set safesearch value'
+      yield @room.user.say 'user', '@hubot set safesearch value'
       @room.robot.brain.set.should.not.have.been.calledOnce
 
     it 'should notify the user of a successful key save', ->
-      @room.user.say 'user', '@hubot rem drake http://i.imgur.com/PKaMRP0.jpg'
+      yield @room.user.say 'user', '@hubot rem drake http://i.imgur.com/PKaMRP0.jpg'
       @room.messages.should.contain.something.that.deep.equals [
         'hubot', 'saved http://i.imgur.com/PKaMRP0.jpg as drake'
       ]
@@ -42,28 +42,28 @@ describe 'memrem', ->
 
     it 'should return a value for key', ->
       @room.robot.brain.get.withArgs('memrem').returns('value')
-      @room.user.say 'user', '@hubot mem key'
+      yield @room.user.say 'user', '@hubot mem key'
       @room.robot.brain.get.should.have.been.calledWith 'memrem'
 
     it 'should allow get as an alias', ->
       @room.robot.brain.get.withArgs('memrem').returns({'cat': 'cat.gif'})
-      @room.user.say 'user', '@hubot get cat'
+      yield @room.user.say 'user', '@hubot get cat'
       @room.robot.brain.get.should.have.been.calledWith 'memrem'
 
     it 'should ignore safesearch as a keyword', ->
-      @room.user.say 'user', '@hubot get safesearch'
+      yield @room.user.say 'user', '@hubot get safesearch'
       @room.robot.brain.get.should.not.have.been.calledOnce
 
     it 'should notify the user of a successful retrieval', ->
       @room.robot.brain.get.withArgs('memrem').returns({'redPanda': '(heart)'})
-      @room.user.say 'user', '@hubot mem redPanda'
+      yield @room.user.say 'user', '@hubot mem redPanda'
       @room.messages.should.contain.something.that.deep.equals [
         'hubot', '(heart)'
       ]
 
     it 'should notify the user of a failed retrieval', ->
       @room.robot.brain.get.withArgs('memrem').returns({})
-      @room.user.say 'user', '@hubot mem klaw'
+      yield @room.user.say 'user', '@hubot mem klaw'
       @room.messages.should.contain.something.that.deep.equals [
         'hubot', 'Couldn\'t find klaw.'
       ]

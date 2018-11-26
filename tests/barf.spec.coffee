@@ -13,7 +13,7 @@ describe 'barf', ->
 
   context 'user says barf', ->
     it 'should post Jason Stolaruk\'s barf tweet', ->
-      @room.user.say 'macklin', '@hubot barf'
+      yield @room.user.say 'macklin', '@hubot barf'
       @room.messages.should.include.something.that.deep.equals [
         'hubot', 'https://twitter.com/JasonStolaruk/status/468797103129366528'
       ]

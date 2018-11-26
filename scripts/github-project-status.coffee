@@ -21,7 +21,7 @@
 #   nwest
 
 _ = require 'underscore'
-githubAPI = require 'github'
+githubAPI = require '@octokit/rest'
 github = new githubAPI(version: "3.0.0")
 Promise = require 'promise'
 
