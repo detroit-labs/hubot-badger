@@ -30,7 +30,6 @@
     "hubot-scripts": "^2.17.2",
     "hubot-slack": "^4.5.5",
     "hubot-xkcd": "0.0.5",
-    "jscs": "^3.0.7",
     "moment": "^2.22.2",
     "mqtt": "^2.18.8",
     "nodemailer": "^4.7.0",
